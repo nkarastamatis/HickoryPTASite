@@ -15,15 +15,15 @@
         </asp:DropDownList>
     </div>
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-5 form-group">
             <uc:PersonNameControl runat="server" ID="Adult1" PersonLabel="Adult #1" />
         </div>
     </div>
     <uc:PersonNameControl runat="server" ID="Adult2" PersonLabel="Adult #2" />
     <div class="row">
-        <div class="col-md-5">
-    <uc:PersonNameControl runat="server" ID="Child1" PersonLabel="Child #1" />
-                    </div>
+        <div class="col-md-5 form-group">
+            <uc:PersonNameControl runat="server" ID="Child1" PersonLabel="Child #1" />
+        </div>
     </div>
     <uc:StudentControl runat="server" />
     <asp:Panel runat="server" ID="ChildPanel" CssClass="form-control-static"></asp:Panel>

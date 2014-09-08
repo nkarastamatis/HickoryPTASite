@@ -4,14 +4,14 @@
 <link href="../Content/Membership.css" rel="stylesheet" />
 <div class="form-group">
     <div class="row">
-        <div class="col-lg-5">
-            <uc:PersonNameControl runat="server" ID="StudentName" />
+        <div class="col-md-5">
+            <uc:PersonNameControl runat="server" ID="StudentName" PersonLabel="Test" />
         </div>
-        <div class="col-lg-7">
-            <div class="col-md-3">
+        <div class="input-group col-md-7">
+            <div class="col-md-3 col-xs-6">
                 <asp:DropDownList runat="server" CssClass="form-control" ID="GradeSelect" OnSelectedIndexChanged="Grade_Select" AutoPostBack="True" />
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6 col-xs-6">
             <asp:DropDownList runat="server" CssClass="form-control" ID="TeacherSelect" />
             </div>
         </div>
