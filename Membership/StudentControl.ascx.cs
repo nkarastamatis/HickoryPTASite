@@ -7,8 +7,15 @@ using System.Web.UI.WebControls;
 using System.Xml.Serialization;
 using System.IO;
 
-public partial class Membership_StudentControl : System.Web.UI.UserControl
+public partial class StudentControl : System.Web.UI.UserControl
 {
+    public string StudentLabel
+    {
+        set
+        {
+            StudentName.PersonLabel = value;
+        }
+    }
     private IDictionary<Grade, IList<Teacher>> _teachersByGrade;
     private const string TeachersByGradeSessionKey = "TeachersByGrade";
     private IDictionary<Grade, IList<Teacher>> TeachersByGrade
@@ -52,19 +59,36 @@ public partial class Membership_StudentControl : System.Web.UI.UserControl
         return teachersByGrade;
     }
 
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Init(Object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            var grades = new List<Grade>((Grade[])Enum.GetValues(typeof(Grade)));
-
-            GradeSelect.Items.AddRange(
-                grades
-                .Select(g => new ListItem { Text = g.ToString() })
-                .ToArray());
-
-            UpdateTeacherDropDown();
+            Initialize();
         }
+    }
+
+    public void Initialize()
+    {
+        var grades = new List<Grade>((Grade[])Enum.GetValues(typeof(Grade)));
+
+        GradeSelect.Items.AddRange(
+            grades
+            .Select(g => new ListItem { Text = g.ToString() })
+            .ToArray());
+
+        UpdateTeacherDropDown();
+
+       
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        
+    }
+
+    public void SetEvents()
+    {
+        GradeSelect.SelectedIndexChanged += Grade_Select;
     }
 
     protected void Grade_Select(object sender, EventArgs e)

@@ -7,22 +7,32 @@ using System.Web.UI.WebControls;
 
 public partial class Membership : System.Web.UI.Page
 {
-    private IList<Control> _persistedControls;
-    private const string PersistedControlsSessionKey = "persistedcontrols";
-    private IList<Control> PersistedControls
+    private const string MembershipSelectedSessionKey = "membershipselected";
+    private IList<StudentControl> _persistedControls;
+    private const string PersistedControlsSessionKey = "studentcontrols";
+    private IList<StudentControl> PersistedControls
     {
         get
         {
             if (_persistedControls == null)
             {
                 if (Session[PersistedControlsSessionKey] == null)
-                    Session[PersistedControlsSessionKey] = new List<Control>();
-                _persistedControls = Session[PersistedControlsSessionKey] as IList<Control>;
+                    Session[PersistedControlsSessionKey] = new List<StudentControl>();
+                _persistedControls = Session[PersistedControlsSessionKey] as IList<StudentControl>;
             }
             return _persistedControls;
         }
     }
-
+    protected void Page_Init(Object sender, EventArgs e)
+    {
+        RemoveChildButton.Visible = false;
+        foreach (var control in PersistedControls)
+        {
+            RemoveChildButton.Visible = true;
+            (control as StudentControl).SetEvents();
+            ChildPanel.Controls.Add(control);
+        }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -32,13 +42,13 @@ public partial class Membership : System.Web.UI.Page
             Adult2.Visible = false;
             //ViewState["ChildPanel"] = ChildPanel;
         }
-
-        RemoveChildButton.Visible = false;
-        foreach (var control in PersistedControls)
+        else
         {
-            RemoveChildButton.Visible = true;
-            ChildPanel.Controls.Add(control);
+            //if (Session[MembershipSelectedSessionKey] != null)
+            //    MembershipTypeSelect.SelectedIndex = (int)Session[MembershipSelectedSessionKey];
         }
+
+        
     }
 
     private void MembershipTypeSelect_ServerChange(object sender, EventArgs e)
@@ -56,22 +66,21 @@ public partial class Membership : System.Web.UI.Page
     protected void MembershipType_Select(object sender, EventArgs e)
     {
         Adult2.Visible = MembershipTypeSelect.Text == "Family";
-
+        Session[MembershipSelectedSessionKey] = MembershipTypeSelect.SelectedIndex;
     }
 
     protected void AddChild_ServerClick(object sender, EventArgs e)
     {
-        var c = this.LoadControl("PersonNameControl.ascx") as PersonNameControl;
-        c.PersonLabel = "Child #" + (ChildPanel.Controls.Count + 2).ToString();
-        var container = Child1.Parent;
-        int i = container.Controls.IndexOf(Child1);
-        ChildPanel.Controls.Add(c);
-        PersistedControls.Add(c);
+        var control = this.LoadControl("StudentControl.ascx") as StudentControl;
+        control.Initialize();
+        control.StudentLabel = "Child";// +(ChildPanel.Controls.Count + 2).ToString();
+        ChildPanel.Controls.Add(control);
+        PersistedControls.Add(control);
 
         if (ChildPanel.Controls.Count > 0)
             RemoveChildButton.Visible = true;
 
-        this.Response.Redirect(this.Request.Url.ToString());
+        //this.Response.Redirect(this.Request.Url.ToString(), false);
     }
 
     protected void RemoveChild_ServerClick(object sender, EventArgs e)
@@ -86,6 +95,6 @@ public partial class Membership : System.Web.UI.Page
         if (ChildPanel.Controls.Count == 0)
             RemoveChildButton.Visible = false;
 
-        this.Response.Redirect(this.Request.Url.ToString());
+        //this.Response.Redirect(this.Request.Url.ToString());
     }
 }
