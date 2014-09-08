@@ -1,0 +1,17 @@
+﻿body {
+}
+
+ .form-group .form-inline{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#ControlLabel .form-group{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#Adult1{
+    margin-left: 0;
+    margin-right: 0;
+}

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<ArrayOfTeacher xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Teacher>
+    <Name>
+      <First>Mrs.</First>
+      <Last>Hoagland</Last>
+    </Name>
+    <Grade>K</Grade>
+  </Teacher>
+  <Teacher>
+    <Name>
+      <First>Ms.</First>
+      <Last>Grubb</Last>
+    </Name>
+    <Grade>K</Grade>
+  </Teacher>
+  <Teacher>
+    <Name>
+      <First>Mrs.</First>
+      <Last>Grubb</Last>
+    </Name>
+    <Grade>Second</Grade>
+  </Teacher>
+</ArrayOfTeacher>
