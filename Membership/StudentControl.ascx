@@ -12,7 +12,7 @@
                 <asp:DropDownList runat="server" CssClass="form-control" ID="GradeSelect" OnSelectedIndexChanged="Grade_Select" AutoPostBack="True" />
             </div>
             <div class="col-md-6 col-xs-6">
-            <asp:DropDownList runat="server" CssClass="form-control" ID="TeacherSelect" />
+                <asp:DropDownList runat="server" CssClass="form-control" ID="TeacherSelect" />
             </div>
         </div>
     </div>
