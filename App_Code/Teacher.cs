@@ -22,4 +22,12 @@ public class Teacher
         Name = new PersonName();
         Grade = new Grade();
 	}
+
+    public string NameString
+    {
+        get
+        {
+            return Name.ToString();
+        }
+    }
 }

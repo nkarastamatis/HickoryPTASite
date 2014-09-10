@@ -178,4 +178,17 @@ public partial class Membership : System.Web.UI.Page
         if (ChildPanel.Controls.Count == 1)
             RemoveChildButton.Visible = false;
     }
+
+    [System.Web.Services.WebMethod]
+    public static void Test()
+    {
+        
+        
+    }
+
+    [System.Web.Services.WebMethod]
+    public static string search()
+    {
+        return "worked";
+    }
 }

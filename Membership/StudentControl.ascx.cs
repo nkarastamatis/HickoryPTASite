@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -16,6 +17,7 @@ public partial class StudentControl : System.Web.UI.UserControl
             StudentName.PersonLabel = value;
         }
     }
+    private List<Teacher> _teacherList;
     private IDictionary<Grade, IList<Teacher>> _teachersByGrade;
     private const string TeachersByGradeSessionKey = "TeachersByGrade";
     private IDictionary<Grade, IList<Teacher>> TeachersByGrade
@@ -69,6 +71,8 @@ public partial class StudentControl : System.Web.UI.UserControl
 
     public void Initialize()
     {
+        _teacherList = new List<Teacher>();
+
         var grades = new List<Grade>((Grade[])Enum.GetValues(typeof(Grade)));
 
         GradeSelect.Items.AddRange(
@@ -78,6 +82,10 @@ public partial class StudentControl : System.Web.UI.UserControl
 
         UpdateTeacherDropDown();
 
+        TeacherSelect.DataTextField = "NameString";
+        TeacherSelect.DataValueField = "NameString";
+        TeacherSelect.DataSource = _teacherList;
+        TeacherSelect.DataBind();
        
     }
 
@@ -102,11 +110,14 @@ public partial class StudentControl : System.Web.UI.UserControl
         IList<Teacher> teacherList = null;
         if (TeachersByGrade.TryGetValue(selection, out teacherList))
         {
-            TeacherSelect.Items.Clear();
-            TeacherSelect.Items.AddRange(
-                teacherList
-                .Select(t => new ListItem { Text = t.Name.ToString() })
-                .ToArray());
+            _teacherList.Clear();
+            _teacherList.Add(teacherList);
+            TeacherSelect.DataBind();
+            //TeacherSelect.Items.Clear();
+            //TeacherSelect.Items.AddRange(
+            //    teacherList
+            //    .Select(t => new ListItem { Text = t.Name.ToString() })
+            //    .ToArray());
         }
     }
 
