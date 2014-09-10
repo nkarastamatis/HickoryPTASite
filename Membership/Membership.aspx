@@ -5,26 +5,9 @@
 <%@ Register TagPrefix="uc" TagName="AdultControl" Src="~/Membership/AdultControl.ascx" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
-    <link href="../Content/Membership.css" rel="stylesheet" />
-    <script src="../Scripts/WebForms/Phone.js"></script>
-
+    
     <h2><%: Title %>.</h2>
     <button id="btnSearch" onclick="search(); return false;" >Search</button>
-    <script type="text/javascript">
-        function search() {
-            $.ajax({
-                type: 'POST',
-                url: '<%= ResolveUrl("~/membership/membership.aspx/search") %>',
-                data: '{ }',
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: function (msg) {
-                    alert(msg.d)
-                }
-            });
-        }
-    </script>
 
     <div class="row">
         <div class="col-md-5 form-group">
@@ -78,5 +61,20 @@
             <asp:Button ID="Button1" runat="server" OnClick="Submit_Click" Text="Register" CssClass="btn btn-default" />
         </div>
     </div>
+    <script type="text/javascript">
+        OnMembershipLoaded();
+        function search() {
+            $.ajax({
+                type: 'POST',
+                url: '<%= ResolveUrl("~/membership/membership.aspx/GetTeachersByGrade") %>',
+                data: '{ }',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (msg) {
+                    jsonTeachersByGrade = msg.d;
+                }
+            });
+        }
+    </script>
 </asp:Content>
 

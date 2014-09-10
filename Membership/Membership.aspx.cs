@@ -52,23 +52,24 @@ public partial class Membership : System.Web.UI.Page
     #endregion 
 
     #region TeachersByGrade
-    private IDictionary<Grade, IList<Teacher>> _teachersByGrade;
-    private const string TeachersByGradeSessionKey = "TeachersByGrade";
-    private IDictionary<Grade, IList<Teacher>> TeachersByGrade
+    private static IDictionary<Grade, IList<Teacher>> _teachersByGrade;
+    private static string TeachersByGradeSessionKey = "TeachersByGrade";
+    private static IDictionary<Grade, IList<Teacher>> TeachersByGrade
     {
         get
         {
             if (_teachersByGrade == null)
             {
-                if (Session[TeachersByGradeSessionKey] == null)
-                    Session[TeachersByGradeSessionKey] = RetrieveTeachersByGrade();
-                _teachersByGrade = Session[TeachersByGradeSessionKey] as IDictionary<Grade, IList<Teacher>>;
+                //if (Session[TeachersByGradeSessionKey] == null)
+                //    Session[TeachersByGradeSessionKey] = RetrieveTeachersByGrade();
+                //_teachersByGrade = Session[TeachersByGradeSessionKey] as IDictionary<Grade, IList<Teacher>>;
+                _teachersByGrade = RetrieveTeachersByGrade();
             }
             return _teachersByGrade;
         }
     }
 
-    private IDictionary<Grade, IList<Teacher>> RetrieveTeachersByGrade()
+    private static IDictionary<Grade, IList<Teacher>> RetrieveTeachersByGrade()
     {
         var teachersByGrade = new Dictionary<Grade, IList<Teacher>>();
         foreach (var grade in (Grade[])Enum.GetValues(typeof(Grade)))
@@ -78,7 +79,8 @@ public partial class Membership : System.Web.UI.Page
 
         List<Teacher> teachers = null;
         XmlSerializer serializer = new XmlSerializer(typeof(List<Teacher>));
-        using (var stream = File.OpenRead(Server.MapPath("~/Data/Teachers.xml")))
+        using (var stream = File.OpenRead(
+            System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/Teachers.xml")))
         {
             teachers = (List<Teacher>)serializer.Deserialize(stream);
         }
@@ -122,7 +124,6 @@ public partial class Membership : System.Web.UI.Page
             //    MembershipTypeSelect.SelectedIndex = (int)Session[MembershipSelectedSessionKey];
         }
 
-        var jsonTeachersByGrade = JsonConvert.SerializeObject(TeachersByGrade);
     }
 
     private void MembershipTypeSelect_ServerChange(object sender, EventArgs e)
@@ -180,10 +181,10 @@ public partial class Membership : System.Web.UI.Page
     }
 
     [System.Web.Services.WebMethod]
-    public static void Test()
+    public static string GetTeachersByGrade()
     {
-        
-        
+        var jsonTeachersByGrade = JsonConvert.SerializeObject(TeachersByGrade);
+        return jsonTeachersByGrade;      
     }
 
     [System.Web.Services.WebMethod]

@@ -43,26 +43,6 @@ function formatPhoneNumber() {
     var p = $(".phone");
     number = phoneFormat(number);
     $(".phone").val(number);
-
-    $.ajax({
-        type: "POST",
-        url: "Membership.aspx/Test",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: "{}",// '{"format":"' + number + '"}',
-        success: function (result) {
-            OnSuccess(result.d);
-        },
-        error: function (xhr, status, error) {
-            OnFailure(error);
-        }
-    });
 }
 
-function OnSuccess(res) {
-    var i = 0;
-}
 
-function OnFailure(error) {
-    var i = -1;
-}

@@ -44,7 +44,7 @@ public partial class StudentControl : System.Web.UI.UserControl
 
         List<Teacher> teachers = null;
         XmlSerializer serializer = new XmlSerializer(typeof(List<Teacher>));
-        using (var stream = File.OpenRead(Server.MapPath("~/Data/Teachers.xml")))
+        using (var stream = File.OpenRead(Server.MapPath("~/App_Data/Teachers.xml")))
         {
             teachers = (List<Teacher>)serializer.Deserialize(stream);
         }
@@ -111,7 +111,7 @@ public partial class StudentControl : System.Web.UI.UserControl
         if (TeachersByGrade.TryGetValue(selection, out teacherList))
         {
             _teacherList.Clear();
-            _teacherList.Add(teacherList);
+            _teacherList.AddRange(teacherList);
             TeacherSelect.DataBind();
             //TeacherSelect.Items.Clear();
             //TeacherSelect.Items.AddRange(

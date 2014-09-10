@@ -20,8 +20,8 @@ namespace HickoryPTASite
                             "~/Scripts/WebForms/GridView.js",
                             "~/Scripts/WebForms/DetailsView.js",
                             "~/Scripts/WebForms/TreeView.js",
-                            "~/Scripts/WebForms/WebParts.js",
-                            "~/Scripts/WebForms/Phone.js"));
+                            "~/Scripts/WebForms/WebParts.js"
+                            ));
 
             // Order is very important for these files to work, they have explicit dependencies
             bundles.Add(new ScriptBundle("~/bundles/MsAjaxJs").Include(
@@ -42,6 +42,18 @@ namespace HickoryPTASite
                     Path = "~/Scripts/respond.min.js",
                     DebugPath = "~/Scripts/respond.js",
                 });
+
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+                "SiteBundle",
+                new ScriptResourceDefinition
+                {
+                    Path = "~/bundles/SiteJs"
+                });
+
+            bundles.Add(new ScriptBundle("~/bundles/SiteJs").Include(
+                "~/Scripts/knockout-3.2.0.js",
+                "~/Scripts/Site/Phone.js",
+                "~/Scripts/Site/Membership.js"));
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="AdultControl.ascx.cs" Inherits="AdultControl" %>
 <%@ Register TagPrefix="uc" TagName="PersonNameControl" Src="~/Membership/PersonNameControl.ascx" %>
-<link href="../Content/Kickstrap/bootstrap.min.css" rel="stylesheet" />
-<script src="../Scripts/WebForms/Phone.js"></script>
 <div class="form-group">
     <div class="row">
         <div class="col-md-5 col-xs-12">
