@@ -100,7 +100,6 @@ public partial class Membership : System.Web.UI.Page
 
     protected void Page_Init(Object sender, EventArgs e)
     {
-        RemoveChildButton.Visible = false;
         //foreach (var control in PersistedControls)
         //{
         //    RemoveChildButton.Visible = true;
@@ -114,9 +113,7 @@ public partial class Membership : System.Web.UI.Page
         {
             //var l = new PersonName[] { Adult1.Name, Adult2.Name, Child1.Name, Child2.Name, Child3.Name };
             //Session["names"] = l;
-            Adult2.Visible = false;
             //ViewState["ChildPanel"] = ChildPanel;
-            AddChild();
         }
         else
         {
@@ -144,41 +141,6 @@ public partial class Membership : System.Web.UI.Page
         Session[MembershipSelectedSessionKey] = MembershipTypeSelect.SelectedIndex;
     }
 
-    protected void AddChild_ServerClick(object sender, EventArgs e)
-    {
-        if (isRefresh)
-            return;
-        
-        AddChild();
-    }
-
-    private void AddChild()
-    {
-        //var control = this.LoadControl("StudentControl.ascx") as StudentControl;
-        //control.Initialize();
-        //control.StudentLabel = "Child";// +(ChildPanel.Controls.Count + 2).ToString();
-        //ChildPanel.Controls.Add(control);
-        //PersistedControls.Add(control);
-
-        //if (ChildPanel.Controls.Count > 1)
-        //    RemoveChildButton.Visible = true;
-    }
-
-    protected void RemoveChild_ServerClick(object sender, EventArgs e)
-    {
-        if (isRefresh)
-            return;
-
-        var last = PersistedControls.LastOrDefault();
-        if (last != null)
-        {
-            ChildPanel.Controls.Remove(last);
-            PersistedControls.Remove(last);
-        }
-
-        if (ChildPanel.Controls.Count == 1)
-            RemoveChildButton.Visible = false;
-    }
 
     [System.Web.Services.WebMethod]
     public static string GetTeachersByGrade()

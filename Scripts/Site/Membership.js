@@ -1,6 +1,7 @@
 ﻿
 var membership = {
-    teachersByGrade: null
+    teachersByGrade: null,
+    membershipTypes: ["Single", "Family", "Corporate"]
 };
 
 function OnMembershipLoaded() {
@@ -24,7 +25,7 @@ function OnMembershipLoaded() {
 function OnGetTeachersByGradeSuccess(msg) {
     var i = 0;
     membership.teachersByGrade = JSON.parse(msg.d);
-    ko.applyBindings(new Family());
+    ko.applyBindings(new MembershipInfo());
 }
 
 function OnGetTeachersByGradeFailure(XMLHttpRequest, textStatus, errorThrown) {
@@ -50,14 +51,34 @@ var Class = function () {
             names.push(teacher.NameString);
         });
         self.teachers(names);
-    })
-
+    })    
 };
 
-var Family = function () {
+var Adult = function() {
     var self = this;
+}
+
+var MembershipInfo = function () {
+    var self = this;
+    self.membershipTypes = ko.observableArray(membership.membershipTypes);
+    self.membershipType = ko.observable();
+    self.adults = ko.observableArray([new Adult()]);
     self.children = ko.observableArray([new Class()]);
+    self.shouldShowRemove = ko.observable(false);
 
     self.addChild = function () { self.children.push(new Class()) };
+    self.removeChild = function () { self.children.pop() };
+
+    self.children.subscribe(function () {
+        self.shouldShowRemove(self.children().length > 1);
+    })
+
+    self.membershipType.subscribe(function () {
+        if (self.membershipType() == "Family")
+            self.adults.push(new Adult());
+        else if (self.adults().length > 1)
+            self.adults.pop();
+    })
+    
 }
 

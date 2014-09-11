@@ -7,28 +7,23 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     
     <h2><%: Title %>.</h2>
-    <button id="btnSearch" onclick="search(); return false;" >Search</button>
 
     <div class="row">
         <div class="col-md-5 form-group">
             <div class="form-group">
-            <div class="">
-                <label runat="server" class="control-label">Membership Type:</label>
-            </div>
-            <div class="">
-                <asp:DropDownList runat="server" EnableViewState="true" CssClass="form-control" ID="MembershipTypeSelect" OnSelectedIndexChanged="MembershipType_Select" AutoPostBack="True">
-                    <asp:ListItem Value="Single">Single</asp:ListItem>
-                    <asp:ListItem Value="Family">Family</asp:ListItem>
-                    <asp:ListItem Value="Corp">Corporate</asp:ListItem>
-                </asp:DropDownList>
-            </div>
+                <div class="">
+                    <label runat="server" class="control-label">Membership Type:</label>
+                </div>
+                <div class="">
+                    <select data-bind="options: membershipTypes, selectedOptions: membershipType" runat="server" class="form-control"></select>
+                </div>
             </div>
         </div>
     </div>
 
-    <uc:AdultControl runat="server" ID="Adult1" />
-
-    <uc:AdultControl runat="server" ID="Adult2" />
+    <div data-bind="foreach: adults">
+        <uc:AdultControl runat="server" ID="Adult1" />
+    </div>
 
     <%-- Address Control --%>
     <div class="row">
@@ -36,21 +31,18 @@
             <uc:AddressControl runat="server" ID="Address" />
         </div>
     </div>
-
-    <asp:PlaceHolder runat="server" ID="ChildPanel"></asp:PlaceHolder>
     
-    <uc:StudentControl runat="server" />
+    <div data-bind="foreach: children">
+        <uc:StudentControl runat="server" />
+    </div>
 
     <%-- Remove/Add Child Button --%>
     <div class="form-group">
         <div class="form-inline">
             <div class="form-group">
-                <div class="btn-group btn-group-xs">
-                    <button runat="server" id="RemoveChildButton" onclientclick="RemoveClick" onserverclick="RemoveChild_ServerClick" type="button" class="btn btn-danger">
+                <div class="btn-group btn-group-xs">                    
+                    <button data-bind="click: removeChild, visible: shouldShowRemove" runat="server" type="button" class="btn btn-danger">
                         <span class="glyphicon glyphicon-minus"></span>&nbsp;Remove Child
-                    </button>
-                    <button runat="server" id="AddChildButton" onserverclick="AddChild_ServerClick" type="button" class="btn btn-success">
-                        <span class="glyphicon glyphicon-plus"></span>&nbsp;Add Child
                     </button>
                     <button data-bind="click: addChild" runat="server" type="button" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus"></span>&nbsp;Add Child
@@ -66,20 +58,9 @@
             <asp:Button ID="Button1" runat="server" OnClick="Submit_Click" Text="Register" CssClass="btn btn-default" />
         </div>
     </div>
+
     <script type="text/javascript">
         OnMembershipLoaded();
-        function search() {
-            $.ajax({
-                type: 'POST',
-                url: '<%= ResolveUrl("~/membership/membership.aspx/GetTeachersByGrade") %>',
-                data: '{ }',
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: function (msg) {
-                    jsonTeachersByGrade = msg.d;
-                }
-            });
-        }
     </script>
 </asp:Content>
 
