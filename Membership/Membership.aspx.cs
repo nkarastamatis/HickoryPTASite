@@ -101,12 +101,12 @@ public partial class Membership : System.Web.UI.Page
     protected void Page_Init(Object sender, EventArgs e)
     {
         RemoveChildButton.Visible = false;
-        foreach (var control in PersistedControls)
-        {
-            RemoveChildButton.Visible = true;
-            (control as StudentControl).SetEvents();
-            ChildPanel.Controls.Add(control);
-        }
+        //foreach (var control in PersistedControls)
+        //{
+        //    RemoveChildButton.Visible = true;
+        //    (control as StudentControl).SetEvents();
+        //    ChildPanel.Controls.Add(control);
+        //}
     }
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -154,14 +154,14 @@ public partial class Membership : System.Web.UI.Page
 
     private void AddChild()
     {
-        var control = this.LoadControl("StudentControl.ascx") as StudentControl;
-        control.Initialize();
-        control.StudentLabel = "Child";// +(ChildPanel.Controls.Count + 2).ToString();
-        ChildPanel.Controls.Add(control);
-        PersistedControls.Add(control);
+        //var control = this.LoadControl("StudentControl.ascx") as StudentControl;
+        //control.Initialize();
+        //control.StudentLabel = "Child";// +(ChildPanel.Controls.Count + 2).ToString();
+        //ChildPanel.Controls.Add(control);
+        //PersistedControls.Add(control);
 
-        if (ChildPanel.Controls.Count > 1)
-            RemoveChildButton.Visible = true;
+        //if (ChildPanel.Controls.Count > 1)
+        //    RemoveChildButton.Visible = true;
     }
 
     protected void RemoveChild_ServerClick(object sender, EventArgs e)

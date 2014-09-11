@@ -24,7 +24,7 @@ function OnMembershipLoaded() {
 function OnGetTeachersByGradeSuccess(msg) {
     var i = 0;
     membership.teachersByGrade = JSON.parse(msg.d);
-    ko.applyBindings(new Class());
+    ko.applyBindings(new Family());
 }
 
 function OnGetTeachersByGradeFailure(XMLHttpRequest, textStatus, errorThrown) {
@@ -36,13 +36,28 @@ var Class = function () {
 
     var grades = [];
     for (var key in membership.teachersByGrade)
-        grades.push(key.toString());
+        grades.push(key);
 
 
     self.grades = ko.observableArray(grades);
     self.selectedGrade = ko.observable();
     self.teachers = ko.observableArray();
-    self.grades.subscribe( function() {
-        self.teachers(self.selectedGrade.valueOf().value)
-        })
+    self.selectedGrade.subscribe(function () {
+        var grade = self.selectedGrade.arguments[0];
+        var names = [];        
+        var teachers = membership.teachersByGrade[grade];
+        teachers.forEach(function (teacher) {
+            names.push(teacher.NameString);
+        });
+        self.teachers(names);
+    })
+
 };
+
+var Family = function () {
+    var self = this;
+    self.children = ko.observableArray([new Class()]);
+
+    self.addChild = function () { self.children.push(new Class()) };
+}
+

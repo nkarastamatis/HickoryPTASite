@@ -14,7 +14,7 @@ public partial class StudentControl : System.Web.UI.UserControl
     {
         set
         {
-            StudentName.PersonLabel = value;
+            //StudentName.PersonLabel = value;
         }
     }
     private List<Teacher> _teacherList;
@@ -65,61 +65,61 @@ public partial class StudentControl : System.Web.UI.UserControl
     {
         if (!IsPostBack)
         {
-            Initialize();
+            //Initialize();
         }
     }
 
-    public void Initialize()
-    {
-        _teacherList = new List<Teacher>();
+    //public void Initialize()
+    //{
+    //    _teacherList = new List<Teacher>();
 
-        var grades = new List<Grade>((Grade[])Enum.GetValues(typeof(Grade)));
+    //    var grades = new List<Grade>((Grade[])Enum.GetValues(typeof(Grade)));
 
-        GradeSelect.Items.AddRange(
-            grades
-            .Select(g => new ListItem { Text = g.ToString() })
-            .ToArray());
+    //    GradeSelect.Items.AddRange(
+    //        grades
+    //        .Select(g => new ListItem { Text = g.ToString() })
+    //        .ToArray());
 
-        UpdateTeacherDropDown();
+    //    UpdateTeacherDropDown();
 
-        TeacherSelect.DataTextField = "NameString";
-        TeacherSelect.DataValueField = "NameString";
-        TeacherSelect.DataSource = _teacherList;
-        TeacherSelect.DataBind();
+    //    TeacherSelect.DataTextField = "NameString";
+    //    TeacherSelect.DataValueField = "NameString";
+    //    TeacherSelect.DataSource = _teacherList;
+    //    TeacherSelect.DataBind();
        
-    }
+    //}
 
-    protected void Page_Load(object sender, EventArgs e)
-    {
+    //protected void Page_Load(object sender, EventArgs e)
+    //{
         
-    }
+    //}
 
-    public void SetEvents()
-    {
-        GradeSelect.SelectedIndexChanged += Grade_Select;
-    }
+    //public void SetEvents()
+    //{
+    //    GradeSelect.SelectedIndexChanged += Grade_Select;
+    //}
 
-    protected void Grade_Select(object sender, EventArgs e)
-    {
-        UpdateTeacherDropDown();
-    }
+    //protected void Grade_Select(object sender, EventArgs e)
+    //{
+    //    UpdateTeacherDropDown();
+    //}
 
-    private void UpdateTeacherDropDown()
-    {
-        var selection = (Grade)Enum.Parse(typeof(Grade), GradeSelect.SelectedItem.Text);
-        IList<Teacher> teacherList = null;
-        if (TeachersByGrade.TryGetValue(selection, out teacherList))
-        {
-            _teacherList.Clear();
-            _teacherList.AddRange(teacherList);
-            TeacherSelect.DataBind();
-            //TeacherSelect.Items.Clear();
-            //TeacherSelect.Items.AddRange(
-            //    teacherList
-            //    .Select(t => new ListItem { Text = t.Name.ToString() })
-            //    .ToArray());
-        }
-    }
+    //private void UpdateTeacherDropDown()
+    //{
+    //    var selection = (Grade)Enum.Parse(typeof(Grade), GradeSelect.SelectedItem.Text);
+    //    IList<Teacher> teacherList = null;
+    //    if (TeachersByGrade.TryGetValue(selection, out teacherList))
+    //    {
+    //        _teacherList.Clear();
+    //        _teacherList.AddRange(teacherList);
+    //        TeacherSelect.DataBind();
+    //        //TeacherSelect.Items.Clear();
+    //        //TeacherSelect.Items.AddRange(
+    //        //    teacherList
+    //        //    .Select(t => new ListItem { Text = t.Name.ToString() })
+    //        //    .ToArray());
+    //    }
+    //}
 
     protected void Teacher_Select(object sender, EventArgs e)
     {

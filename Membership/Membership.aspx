@@ -38,6 +38,8 @@
     </div>
 
     <asp:PlaceHolder runat="server" ID="ChildPanel"></asp:PlaceHolder>
+    
+    <uc:StudentControl runat="server" />
 
     <%-- Remove/Add Child Button --%>
     <div class="form-group">
@@ -48,6 +50,9 @@
                         <span class="glyphicon glyphicon-minus"></span>&nbsp;Remove Child
                     </button>
                     <button runat="server" id="AddChildButton" onserverclick="AddChild_ServerClick" type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp;Add Child
+                    </button>
+                    <button data-bind="click: addChild" runat="server" type="button" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus"></span>&nbsp;Add Child
                     </button>
                 </div>
