@@ -32,14 +32,21 @@ function OnGetTeachersByGradeFailure(XMLHttpRequest, textStatus, errorThrown) {
     alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
 }
 
-var Class = function () {
+var Name = function () {
+    var self = this;
+
+    self.first = ko.observable();
+    self.last = ko.observable();
+}
+
+var Student = function () {
     var self = this;
 
     var grades = [];
     for (var key in membership.teachersByGrade)
         grades.push(key);
 
-
+    self.name = ko.observable(new Name());
     self.grades = ko.observableArray(grades);
     self.selectedGrade = ko.observable();
     self.teachers = ko.observableArray();
@@ -56,6 +63,9 @@ var Class = function () {
 
 var Adult = function() {
     var self = this;
+    self.name = ko.observable(new Name());
+    //self.first = ko.observable();
+    //self.last = ko.observable();
 }
 
 var MembershipInfo = function () {
@@ -63,10 +73,15 @@ var MembershipInfo = function () {
     self.membershipTypes = ko.observableArray(membership.membershipTypes);
     self.membershipType = ko.observable();
     self.adults = ko.observableArray([new Adult()]);
-    self.children = ko.observableArray([new Class()]);
+    self.children = ko.observableArray([new Student()]);
+
+    self.streetAddress = ko.observable();
+    self.city = ko.observable();
+    self.zip = ko.observable();
+
     self.shouldShowRemove = ko.observable(false);
 
-    self.addChild = function () { self.children.push(new Class()) };
+    self.addChild = function () { self.children.push(new Student()) };
     self.removeChild = function () { self.children.pop() };
 
     self.children.subscribe(function () {
@@ -79,6 +94,48 @@ var MembershipInfo = function () {
         else if (self.adults().length > 1)
             self.adults.pop();
     })
+
+    self.submit = function () {
+        var data = {};
+        data.children = $.map(self.children(), function(child) {
+            var c = {
+                name: {fist: child.name().first(), last: child.name().last()},
+                grade: child.selectedGrade()
+            }
+            return c;
+            
+        });
+        data.adults = $.map(self.adults(), function (adult) {
+            var a = {
+                name: { first: adult.name().first, last: adult.name().last }
+            }
+            return a;
+        });
+        data.address = {
+            streetAddress: self.streetAddress(),
+            city: self.city(),
+            zip: self.zip()
+        };
+        var dataString = JSON.stringify({ "data": data });
+        var pathArray = window.location.href.split('/');
+        var protocol = pathArray[0];
+        var host = pathArray[2];
+        var url = protocol + '//' + host;
+
+        $.ajax({
+            type: 'POST',
+            url: url + '//membership//membership.aspx//submit',
+            data: dataString,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: OnSubmitSuccess,
+            error: OnGetTeachersByGradeFailure
+        });
+
+    }
     
+}
+function OnSubmitSuccess(msg) {
+    alert("Sent");
 }
 

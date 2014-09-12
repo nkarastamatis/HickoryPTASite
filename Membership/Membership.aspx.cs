@@ -137,8 +137,8 @@ public partial class Membership : System.Web.UI.Page
 
     protected void MembershipType_Select(object sender, EventArgs e)
     {
-        Adult2.Visible = MembershipTypeSelect.Text == "Family";
-        Session[MembershipSelectedSessionKey] = MembershipTypeSelect.SelectedIndex;
+        //Adult2.Visible = MembershipTypeSelect.Text == "Family";
+        //Session[MembershipSelectedSessionKey] = MembershipTypeSelect.SelectedIndex;
     }
 
 
@@ -147,6 +147,12 @@ public partial class Membership : System.Web.UI.Page
     {
         var jsonTeachersByGrade = JsonConvert.SerializeObject(TeachersByGrade);
         return jsonTeachersByGrade;      
+    }
+
+    [System.Web.Services.WebMethod]
+    public static void submit(object data)
+    {
+        var d = JsonConvert.DeserializeObject(data.ToString());
     }
 
     [System.Web.Services.WebMethod]
