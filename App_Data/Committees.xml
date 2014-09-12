@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ArrayOfCommittee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Committee>
+    <CommitteeName>BIRTHDAY RIBBONS</CommitteeName>
+    <Description>Distributing birthday ribbons to students throughout the school year.</Description>
+    <ChairPersons>
+      
+        <Contact>
+          <Name>Natalie Cullison</Name>
+          <Phone></Phone>
+          <Email>nataliehop@yahoo.com</Email>
+        </Contact>
+      
+    </ChairPersons>
+  </Committee>  
+  <Committee>
+    <CommitteeName>BOX TOPS</CommitteeName>
+    <Description>Everyone can help by just cutting box tops of products and sending to school.</Description>
+    <ChairPersons>
+      
+        <Contact>
+          <Name>Natalie Cullison</Name>
+          <Phone></Phone>
+          <Email>nataliehop@yahoo.com</Email>
+        </Contact>
+      
+    </ChairPersons>
+  </Committee>
+  <Committee>
+    <CommitteeName>BREAKFAST WITH SANTA</CommitteeName>
+    <Description>Help organize and coordinate a breakfast for grades K, 1 and 2 at school in December.</Description>
+    <ChairPersons>
+     
+        <Contact>
+          <Name>Candice Hennessey</Name>
+          <Phone>443-616-6326</Phone>
+          <Email>canhen1@hotmail.com</Email>
+        </Contact>
+      
+    </ChairPersons>
+  </Committee>  
+</ArrayOfCommittee>
+

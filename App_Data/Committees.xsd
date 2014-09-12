@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element nillable="true" name="ArrayOfCommittee">
+    <xsd:complexType>
+      <xsd:sequence minOccurs="0">
+        <xsd:element minOccurs="0" maxOccurs="unbounded" nillable="true" name="Committee" form="unqualified">
+          <xsd:complexType>
+            <xsd:sequence minOccurs="0">
+              <xsd:element minOccurs="0" nillable="true" type="xsd:string" name="CommitteeName" form="unqualified"></xsd:element>
+              <xsd:element minOccurs="0" nillable="true" type="xsd:string" name="Description" form="unqualified"></xsd:element>
+              <xsd:element minOccurs="0" nillable="true" name="ChairPersons" form="unqualified">
+                <xsd:complexType>
+                  <xsd:sequence minOccurs="0">
+                    <xsd:element minOccurs="0" nillable="true" name="ArrayOfContatct" form="unqualified">
+                      <xsd:complexType>
+                        <xsd:sequence minOccurs="0">
+                          <xsd:element minOccurs="0" maxOccurs="unbounded" nillable="true" name="Contact" form="unqualified">
+                            <xsd:complexType>
+                              <xsd:sequence minOccurs="0">
+                                <xsd:element minOccurs="0" nillable="true" type="xsd:string" name="Name" form="unqualified">
+                                </xsd:element>
+                                <xsd:element minOccurs="0" nillable="true" type="xsd:string" name="Phone" form="unqualified">
+                                </xsd:element>
+                                <xsd:element minOccurs="0" nillable="true" type="xsd:string" name="Email" form="unqualified">
+                                </xsd:element>
+                              </xsd:sequence>
+                            </xsd:complexType>
+                          </xsd:element>
+                        </xsd:sequence>
+                      </xsd:complexType>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xs:schema>

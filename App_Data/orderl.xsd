@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified"
+xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element nillable="true" name="ArrayOfOrder">
+    <xs:complexType>
+      <xs:sequence minOccurs="0">
+<xs:element name="DeliveryAreaOrder" nillable="true" type="DeliveryAreaOrder" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:complexType name="DeliveryAreaOrder">
+   <xs:sequence>
+     <xs:element name="identity" type="DeliveryAreaOrderIdentity" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="orderType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="quantities" type="Quantities" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <xs:element name="pickupQuantities" type="Quantities" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <xs:element name="confirmed" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+     <xs:element name="reservedTime" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+     <xs:element name="deliveryWindowStart" type="xs:time" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <xs:element name="deliveryWindowEnd" type="xs:time" minOccurs="0" maxOccurs="1" nillable="true"/>
+     <xs:element name="stopServiceTime" type="xs:int" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="orderServiceTime" type="xs:int" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="ignoreStopServiceTime" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="serviceTime" type="xs:int" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="latitude" type="xs:int" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="longitude" type="xs:int" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="locationId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="locationType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="breakTime" type="xs:int" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="paidBreakTime" type="xs:int" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="activities" type="DeliveryAreaOrderActivity" minOccurs="0" maxOccurs="unbounded"/>
+     <xs:element name="movable" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+     <xs:element name="routeId" type="xs:int" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="sequenceNumber" type="xs:int" minOccurs="0" maxOccurs="1"/>
+     <xs:element name="waitSeconds" type="xs:int" minOccurs="0" maxOccurs="1"/>
+     <xs:element name="plannedArrivalTime" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+     <xs:element name="distanceTo" type="xs:int" minOccurs="0" maxOccurs="1"/>
+     <xs:element name="secondsTo" type="xs:int" minOccurs="0" maxOccurs="1"/>
+     <xs:element name="sequenced" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+     <xs:element name="referenceNumber" type="xs:string" minOccurs="0" maxOccurs="1"/>
+     <xs:element name="resultType" type="ReserveResultType" minOccurs="0" maxOccurs="1" nillable="true"/>
+   </xs:sequence>
+   </xs:complexType>
+ <xs:complexType name="Quantities">
+   <xs:sequence>
+     <xs:element name="size1" type="xs:double" minOccurs="1" maxOccurs="1" default="0.000000"/>
+     <xs:element name="size2" type="xs:double" minOccurs="1" maxOccurs="1" default="0.000000"/>
+     <xs:element name="size3" type="xs:double" minOccurs="1" maxOccurs="1" default="0.000000"/>
+   </xs:sequence>
+  </xs:complexType>
+  
+ 
+    <xs:simpleType name="ReserveResultType">
+   <xs:restriction base="xs:string">
+    <xs:enumeration value="rrtFailed"/>
+    <xs:enumeration value="rrtSuccess"/>
+    <xs:enumeration value="rrtNewCost"/>
+    <xs:enumeration value="rrtFailedDuplicate"/>
+    <xs:enumeration value="rrtFailedNoResources"/>
+   </xs:restriction>
+  </xs:simpleType>
+ 
+<xs:complexType name="DeliveryAreaOrderIdentity">
+   <xs:complexContent>
+    <xs:extension base="SchedulerIdentity">
+     <xs:sequence>
+     <xs:element name="orderNumber" type="xs:string" minOccurs="1" maxOccurs="1"/>
+     </xs:sequence>
+    </xs:extension>
+   </xs:complexContent>
+  </xs:complexType>
+  
+    <xs:complexType name="DeliveryAreaOrderActivity">
+   <xs:sequence>
+     <xs:element name="activityId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="activitySequence" type="xs:double" minOccurs="1" maxOccurs="1" default="-1.000000"/>
+   </xs:sequence>
+  </xs:complexType>
+  
+    <xs:complexType name="SchedulerIdentity">
+   <xs:sequence>
+     <xs:element name="regionId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="area" type="xs:string" minOccurs="1" maxOccurs="1"/>
+     <xs:element name="deliveryDate" type="xs:date" minOccurs="1" maxOccurs="1"/>
+   </xs:sequence>
+  </xs:complexType>
+  
+  </xs:schema>

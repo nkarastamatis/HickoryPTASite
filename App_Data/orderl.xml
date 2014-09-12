@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ArrayOfOrder>
+	<DeliveryAreaOrder>
+		<identity>
+			<regionId>Region1</regionId>
+			<deliveryDate>2014-04-12</deliveryDate>
+		</identity>
+	</DeliveryAreaOrder>
+	<DeliveryAreaOrder>
+		<identity>
+			<regionId>Region2</regionId>
+			<deliveryDate>Josh</deliveryDate>
+		</identity>
+	</DeliveryAreaOrder>
+</ArrayOfOrder>
