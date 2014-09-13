@@ -53,7 +53,8 @@ namespace HickoryPTASite
             bundles.Add(new ScriptBundle("~/bundles/SiteJs").Include(
                 "~/Scripts/knockout-3.2.0.js",
                 "~/Scripts/Site/Phone.js",
-                "~/Scripts/Site/Membership.js"));
+                "~/Scripts/Site/Membership.js",
+                "~/Scripts/Site/CreateCommittee.js"));
         }
     }
 }

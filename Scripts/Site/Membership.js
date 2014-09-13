@@ -64,6 +64,8 @@ var Student = function () {
 var Adult = function() {
     var self = this;
     self.name = ko.observable(new Name());
+    self.Phone = ko.observable();
+    self.Email = ko.observable();
     //self.first = ko.observable();
     //self.last = ko.observable();
 }
@@ -107,7 +109,7 @@ var MembershipInfo = function () {
         });
         data.adults = $.map(self.adults(), function (adult) {
             var a = {
-                name: { first: adult.name().first, last: adult.name().last }
+                name: { first: adult.name().first(), last: adult.name().last() }
             }
             return a;
         });
