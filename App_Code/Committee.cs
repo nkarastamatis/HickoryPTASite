@@ -19,6 +19,43 @@ public class Committee
 		//
 		// TODO: Add constructor logic here
 		//
-        ChairPersons = new List<Contact>();
+        Initialize();
 	}
+
+    public Committee(object obj)
+    {
+        var valuesByProp = obj as Dictionary<string, object>;
+        if (valuesByProp == null)
+        {
+            Initialize();
+            return;
+        }
+
+        Type type = typeof(Committee);
+        foreach (var pair in valuesByProp)
+        {
+            var property = type.GetProperty(pair.Key);
+            if (property != null)
+            {
+                object value = null;
+                if (property.PropertyType == typeof(string))
+                    value = pair.Value;
+                else if (pair.Value is Array)
+                {
+                    foreach (var item in (pair.Value as object[]))
+                    {
+                        value = Activator.CreateInstance(property.PropertyType.GetGenericArguments()[0], item);
+                    }
+                }
+                else
+                    value = Activator.CreateInstance(property.PropertyType, pair.Value);
+                property.SetValue(this, value);
+            }
+        }
+    }
+
+    private void Initialize()
+    {
+        ChairPersons = new List<Contact>();
+    }
 }

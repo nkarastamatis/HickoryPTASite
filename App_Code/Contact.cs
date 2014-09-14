@@ -19,6 +19,36 @@ public class Contact
 		//
 		// TODO: Add constructor logic here
 		//
-        Name = new PersonName();
+        Initialize();
 	}
+
+    public Contact(object obj)
+    {
+        var valuesByProp = obj as Dictionary<string, object>;
+        if (valuesByProp == null)
+        {
+            Initialize();
+            return;
+        }
+
+        Type type = typeof(Contact);
+        foreach (var pair in valuesByProp)
+        {
+            var property = type.GetProperty(pair.Key);
+            if (property != null)
+            {
+                object value = null;
+                if (property.PropertyType == typeof(string))
+                    value = pair.Value;
+                else
+                    value = Activator.CreateInstance(property.PropertyType, pair.Value);
+                property.SetValue(this, value);
+            }
+        }
+    }
+
+    private void Initialize()
+    {
+        Name = new PersonName();
+    }
 }

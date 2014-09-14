@@ -7,11 +7,15 @@
         </div>
         <div class="input-group col-md-7 col-xs-12">
             <div class="col-md-3 col-xs-3">
-                <input runat="server" onkeyup="formatPhoneNumber(); return false;" class="form-control phone" type="tel" id="Phone" placeholder="Enter Phone" />
+                <%--onkeyup="formatPhoneNumber()"--%>
+                <input data-bind="value: Phone" runat="server"  class="form-control phone" type="tel" id="Phone" placeholder="Enter Phone" />
             </div>
             <div class="col-md-6 col-xs-6">
-                <input runat="server" class="form-control" type="email" id="Email" placeholder="Enter Email" />
+                <input data-bind="value: Email" runat="server" class="form-control" type="email" id="Email" placeholder="Enter Email" />
             </div>
         </div>
     </div>
 </div>
+<script>
+    
+</script>

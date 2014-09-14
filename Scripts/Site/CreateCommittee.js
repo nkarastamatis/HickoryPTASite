@@ -1,4 +1,5 @@
 ﻿function OnCreateCommitteeLoaded() {
+    $('phone').keyup(formatPhoneNumber);
     ko.applyBindings(new Committee());
 }
 var Committee = function () {

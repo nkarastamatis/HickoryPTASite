@@ -16,5 +16,6 @@ public partial class Committee_Create : System.Web.UI.Page
     public static void create(object data)
     {
         var dictionary = data as Dictionary<string, object>;
+        var committee = typeof(Committee).Transform(data);
     }
 }
