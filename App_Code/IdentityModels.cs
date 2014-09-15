@@ -28,6 +28,14 @@ namespace HickoryPTASite
         {
         }
     }
+
+    public class RoleManager : RoleManager<IdentityRole>
+    {
+        public RoleManager()
+            : base(new RoleStore<IdentityRole>(new ApplicationDbContext()))
+        {
+        }
+    }
 }
 
 namespace HickoryPTASite

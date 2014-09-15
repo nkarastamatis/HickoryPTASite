@@ -34,7 +34,6 @@ Icon
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
-
+.suo
 packages/
-*.suo
-HickoryPTASite.v12.suo
+
