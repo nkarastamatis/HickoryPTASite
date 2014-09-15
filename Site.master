@@ -74,6 +74,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="/Admin/Roles">Roles</a></li>
+                                <li><a href="/Admin/UsersAndRoles">Users and Roles</a></li>
                             </ul>
                         </li>
                     </ul>
