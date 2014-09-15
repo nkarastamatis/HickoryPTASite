@@ -56,15 +56,16 @@
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">Home</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Committees <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Committees<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="/Committee/Create">Create</a></li>
-                                <li><a href="#">Another action</a></li>
+                                <asp:Repeater runat="server" ID="CommitteeMenuRepeater">
+                                    <ItemTemplate>
+                                        <li><a href="/Committee/Info?name=<%# Container.DataItem as string %>"><%# Container.DataItem as string %></a></li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
                                 <li><a href="#">Something else here</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">One more separated link</a></li>
+                                <li><a href="/Committee/Create">Create</a></li>                                
                             </ul>
                         </li>
                         <li><a runat="server" href="~/About">About</a></li>

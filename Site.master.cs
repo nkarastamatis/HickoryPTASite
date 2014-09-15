@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
 
 public partial class SiteMaster : MasterPage
 {
@@ -63,6 +64,16 @@ public partial class SiteMaster : MasterPage
                 throw new InvalidOperationException("Validation of Anti-XSRF token failed.");
             }
         }
+
+        var filePaths = Directory.GetFiles(Server.MapPath("~/Committee/Data/"));
+        List<string> files = new List<string>();
+        foreach (string filePath in filePaths)
+        {
+            files.Add(Path.GetFileNameWithoutExtension(filePath));
+        }
+
+        CommitteeMenuRepeater.DataSource = files;
+        CommitteeMenuRepeater.DataBind();
     }
 
     protected void Page_Load(object sender, EventArgs e)
