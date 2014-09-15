@@ -15,15 +15,11 @@ public partial class Admin_Roles : System.Web.UI.Page
         if (!IsPostBack)
         {
             // Bind roles to GridView.
-            BindRolestoGridView();            
-        }
-    }
 
-    private void BindRolestoGridView()
-    {
-        var db = new HickoryPTASite.ApplicationDbContext();
-        RolesGrid.DataSource = db.Roles.ToList().Select(r => r.Name);
-        RolesGrid.DataBind();
+            rolesArray = Roles.GetAllRoles();
+            RolesGrid.DataSource = rolesArray;
+            RolesGrid.DataBind();
+        }
     }
 
     public void CreateRole_OnClick(object sender, EventArgs args)
@@ -32,20 +28,21 @@ public partial class Admin_Roles : System.Web.UI.Page
 
         try
         {
-            var rm = new HickoryPTASite.RoleManager();
-            var task = rm.RoleExistsAsync(createRole);
-            task.Wait();
-            if (task.Result)
+            if (Roles.RoleExists(createRole))
             {
                 Msg.Text = "Role '" + Server.HtmlEncode(createRole) + "' already exists. Please specify a different role name.";
                 return;
             }
 
-            rm.CreateAsync(new Microsoft.AspNet.Identity.EntityFramework.IdentityRole(createRole));
+            Roles.CreateRole(createRole);
 
             Msg.Text = "Role '" + Server.HtmlEncode(createRole) + "' created.";
 
-            BindRolestoGridView();
+            // Re-bind roles to GridView.
+
+            rolesArray = Roles.GetAllRoles();
+            RolesGrid.DataSource = rolesArray;
+            RolesGrid.DataBind();
         }
         catch (Exception e)
         {
