@@ -10,6 +10,8 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 public partial class Roles_UsersAndRoles : System.Web.UI.Page
 {
@@ -32,11 +34,13 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
     private void BindRolesToList()
     {
         // Get all of the roles
-        string[] roles = Roles.GetAllRoles();
+        var db = new HickoryPTASite.ApplicationDbContext();
+        var roles = db.Roles.ToList().Select(r => r.Name);
         UsersRoleList.DataSource = roles;
         UsersRoleList.DataBind();
 
         RoleList.DataSource = roles;
+        RoleList.DataMember = "Name";
         RoleList.DataBind();
     }
 
@@ -47,6 +51,7 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
         var db = new HickoryPTASite.ApplicationDbContext();
         var users = db.Users.ToList();
         UserList.DataSource = users;
+        UserList.DataMember = "UserName";
         UserList.DataBind();
     }
 
@@ -59,7 +64,10 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
     {
         // Determine what roles the selected user belongs to
         string selectedUserName = UserList.SelectedValue;
-        string[] selectedUsersRoles = Roles.GetRolesForUser(selectedUserName);
+        var list = UserList.DataSource as IList;
+        var user = list[UserList.SelectedIndex] as IdentityUser;
+        var um = new HickoryPTASite.UserManager();
+        var selectedUsersRoles = user.Roles.ToList();
 
         // Loop through the Repeater's Items and check or uncheck the checkbox as needed
         foreach (RepeaterItem ri in UsersRoleList.Items)
@@ -68,7 +76,7 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
             CheckBox RoleCheckBox = ri.FindControl("RoleCheckBox") as CheckBox;
 
             // See if RoleCheckBox.Text is in selectedUsersRoles
-            if (selectedUsersRoles.Contains<string>(RoleCheckBox.Text))
+            if (selectedUsersRoles.Where(r => r.Role.Name == RoleCheckBox.Text).Any())
                 RoleCheckBox.Checked = true;
             else
                 RoleCheckBox.Checked = false;
@@ -82,13 +90,15 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
 
         // Get the currently selected user and role
         string selectedUserName = UserList.SelectedValue;
+        var um = new HickoryPTASite.UserManager();
+        var user = um.FindByName(selectedUserName);
         string roleName = RoleCheckBox.Text;
 
         // Determine if we need to add or remove the user from this role
         if (RoleCheckBox.Checked)
         {
-            // Add the user to the role
-            Roles.AddUserToRole(selectedUserName, roleName);
+            // Add the user to the role            
+            um.AddToRoleAsync(user.Id, roleName);
 
             // Display a status message
             ActionStatus.Text = string.Format("User {0} was added to role {1}.", selectedUserName, roleName);
@@ -96,7 +106,7 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
         else
         {
             // Remove the user from the role
-            Roles.RemoveUserFromRole(selectedUserName, roleName);
+            um.RemoveFromRoleAsync(user.Id, roleName);
 
             // Display a status message
             ActionStatus.Text = string.Format("User {0} was removed from role {1}.", selectedUserName, roleName);
@@ -119,10 +129,14 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
         string selectedRoleName = RoleList.SelectedValue;
 
         // Get the list of usernames that belong to the role
-        string[] usersBelongingToRole = Roles.GetUsersInRole(selectedRoleName);
+        var db = new HickoryPTASite.ApplicationDbContext();
+        var usersBelongingToRole = db.Users
+                  .Where(u => u.Roles.Any(r => r.Role.Name == selectedRoleName))
+                  .ToList();
 
         // Bind the list of users to the GridView
         RolesUserList.DataSource = usersBelongingToRole;
+        RolesUserList.DataMember = "UserName";
         RolesUserList.DataBind();
     }
 
@@ -135,7 +149,9 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
         Label UserNameLabel = RolesUserList.Rows[e.RowIndex].FindControl("UserNameLabel") as Label;
 
         // Remove the user from the role
-        Roles.RemoveUserFromRole(UserNameLabel.Text, selectedRoleName);
+        var um = new HickoryPTASite.UserManager();
+        var user = um.FindByName(UserNameLabel.Text);
+        um.RemoveFromRole(user.Id, selectedRoleName);
 
         // Refresh the GridView
         DisplayUsersBelongingToRole();
@@ -162,23 +178,22 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
 
         // Make sure that the user exists in the system
         var um = new HickoryPTASite.UserManager();
-        var user = um.FindByNameAsync(userNameToAddToRole);
-        MembershipUser userInfo = Membership.GetUser(userNameToAddToRole);
-        if (userInfo == null)
+        var user = um.FindByName(userNameToAddToRole);
+        if (user == null)
         {
             ActionStatus.Text = string.Format("The user {0} does not exist in the system.", userNameToAddToRole);
             return;
         }
 
         // Make sure that the user doesn't already belong to this role
-        if (Roles.IsUserInRole(userNameToAddToRole, selectedRoleName))
+        if (user.Roles.Where(r => r.Role.Name == selectedRoleName).Any())
         {
             ActionStatus.Text = string.Format("User {0} already is a member of role {1}.", userNameToAddToRole, selectedRoleName);
             return;
         }
 
         // If we reach here, we need to add the user to the role
-        Roles.AddUserToRole(userNameToAddToRole, selectedRoleName);
+        um.AddToRole(user.Id, selectedRoleName);
 
         // Clear out the TextBox
         UserNameToAddToRole.Text = string.Empty;
