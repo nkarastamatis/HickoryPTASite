@@ -29,7 +29,9 @@
 
             <!--Edit Main Content Area here-->
             <div class="col-md-9" id="divMain">
-
+                <asp:FileUpload runat="server" CssClass="form-control" ID="FileUpload" /><br />
+                <asp:Button runat="server" CssClass="form-control" Text="Upload" OnClick="OnFileUpload" /><br />
+                <asp:Label runat="server" CssClass="form-control" ID="Label"></asp:Label>
                 <h2>Two Column (left-hand sidebar)</h2>
                 <hr>
                 <p>Aliquam a tellus quam. Phasellus sit amet bibendum nunc. Donec lobortis nulla diam, a laoreet nisi rhoncus vitae. Suspendisse tincidunt, nulla sed convallis consectetur, diam enim ultricies nulla, a luctus odio nisi in ligula. Aenean ornare rhoncus fermentum. Suspendisse et enim in nibh dictum blandit et id nisi. Duis mollis, libero id venenatis viverra, metus lacus placerat turpis, at semper orci odio id lectus. Proin fringilla quam porttitor est mattis, id aliquam est laoreet. Nulla congue urna nisi, eu commodo dolor aliquet eget. Donec ullamcorper diam quis porttitor convallis. Aliquam erat volutpat. Phasellus pulvinar sagittis nunc et adipiscing.</p>

@@ -37,4 +37,39 @@ public partial class Committee_Info : System.Web.UI.Page
             }
         }
     }
+
+    protected void OnFileUpload(object sender, EventArgs e)
+    {
+        if (FileUpload.HasFile)
+            try
+            {
+                var fileUploadTask = new FileUploadTask(FileUpload);
+
+                var asyncTask = new PageAsyncTask(
+                    fileUploadTask.OnBegin,
+                    fileUploadTask.OnEnd,
+                    fileUploadTask.OnTimeout,
+                    "Task1",
+                    true);
+
+                RegisterAsyncTask(asyncTask);
+                ExecuteRegisteredAsyncTasks();
+
+                //FileUpload.SaveAs("C:\\Uploads\\" +
+                //     FileUpload.FileName);
+                //Label.Text = "File name: " +
+                //     FileUpload.PostedFile.FileName + "<br>" +
+                //     FileUpload.PostedFile.ContentLength + " kb<br>" +
+                //     "Content type: " +
+                //     FileUpload.PostedFile.ContentType;
+            }
+            catch (Exception ex)
+            {
+                Label.Text = "ERROR: " + ex.Message.ToString();
+            }
+        else
+        {
+            Label.Text = "You have not specified a file.";
+        }
+    }
 }
