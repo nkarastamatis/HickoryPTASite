@@ -65,7 +65,7 @@
                                 </asp:Repeater>                                
                                 <li><a href="#">Something else here</a></li>
                                 <li class="divider"></li>
-                                <li style="display:none"><a href="/Committee/Create">Create</a></li>                                
+                                <li><a href="/Committee/Create">Create</a></li>                                
                             </ul>
                         </li>
                         <li><a runat="server" href="~/About">About</a></li>

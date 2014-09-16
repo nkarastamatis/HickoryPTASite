@@ -66,6 +66,11 @@ var Adult = function() {
     self.name = ko.observable(new Name());
     self.Phone = ko.observable();
     self.Email = ko.observable();
+
+    self.Phone.subscribe(function () {
+        var formattedPhone = formatPhoneNumber(self.Phone());
+        self.Phone(formattedPhone);
+    });
     //self.first = ko.observable();
     //self.last = ko.observable();
 }

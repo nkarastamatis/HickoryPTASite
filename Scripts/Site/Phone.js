@@ -37,12 +37,12 @@ function phoneFormat(phone) {
     return phone;
 }
 
-function formatPhoneNumber() {
-    var number = $(".phone").val();
+function formatPhoneNumber(number) {
+    //var number = $(".phone").val();
     number = cleanPhone(number);
-    var p = $(".phone");
     number = phoneFormat(number);
-    $(".phone").val(number);
+    return number;
+    //$(".phone").val(number);
 }
 
 
