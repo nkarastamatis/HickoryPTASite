@@ -23,9 +23,18 @@ public partial class Committee_Info : System.Web.UI.Page
                 {
                     committee = (Committee)serializer.Deserialize(stream);
                 }
+
             }
             catch
             { }
+
+            if (committee != null)
+            {
+                CommitteeName.InnerText = committee.CommitteeName;
+                CommitteeDescription.InnerText = committee.Description;
+                ChairPersons.DataSource = committee.ChairPersons;
+                ChairPersons.DataBind();
+            }
         }
     }
 }
