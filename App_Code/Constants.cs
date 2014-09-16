@@ -13,4 +13,6 @@ public static class Constants
         public const string Admin = "Administrator";
         public const string Chair = "Committee Chair";
     }
+
+    public static string CommitteeQueryStringKey = "name";
 }

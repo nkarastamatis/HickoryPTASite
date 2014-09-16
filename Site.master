@@ -60,7 +60,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <asp:Repeater runat="server" ID="CommitteeMenuRepeater">
                                     <ItemTemplate>
-                                        <li><a href="/Committee/Info?name=<%# Container.DataItem as string %>"><%# Container.DataItem as string %></a></li>
+                                        <li><a href="/Committee/Info?<%# Constants.CommitteeQueryStringKey + "=" + Container.DataItem as string %>"><%# Container.DataItem as string %></a></li>
                                     </ItemTemplate>
                                 </asp:Repeater>                                
                                 <li><a href="#">Something else here</a></li>
