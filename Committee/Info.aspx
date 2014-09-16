@@ -17,7 +17,8 @@
                     <ItemTemplate>
                         <p><address>
                             <strong><%#DataBinder.Eval(Container.DataItem, "Name")%></strong><br />
-                            <abbr title="Phone">P:</abbr> <%#DataBinder.Eval(Container.DataItem, "Phone")%><br />
+                            <abbr title="Phone">P:</abbr> 
+                                <a href="<%#String.Format("tel:+{0}", DataBinder.Eval(Container.DataItem, "Phone"))%>"><%#DataBinder.Eval(Container.DataItem, "Phone")%></a><br />
                             <a href="mailto:<%#DataBinder.Eval(Container.DataItem, "Email")%>"><%#DataBinder.Eval(Container.DataItem, "Email")%></a>
                            </address>
                         </p>
