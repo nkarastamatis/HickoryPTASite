@@ -60,20 +60,23 @@
                             <ul class="dropdown-menu" role="menu">
                                 <asp:Repeater runat="server" ID="CommitteeMenuRepeater">
                                     <ItemTemplate>
-                                        <li><a href="/Committee/Info?name=<%# Container.DataItem as string %>"><%# Container.DataItem as string %></a></li>
+                                        <li><a href="/Committee/Info?<%# Constants.CommitteeQueryStringKey + "=" + Container.DataItem as string %>"><%# Container.DataItem as string %></a></li>
                                     </ItemTemplate>
                                 </asp:Repeater>                                
                                 <li><a href="#">Something else here</a></li>
                                 <li class="divider"></li>
-                                <li style="display:none"><a href="/Committee/Create">Create</a></li>                                
+                                <li><a href="/Committee/Create">Create</a></li>                                
                             </ul>
                         </li>
                         <li><a runat="server" href="~/About">About</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>
-                        <% if (Context.User.Identity.IsAuthenticated)
+                        <% var force = false;
+                           if (force || 
+                               Context.User.Identity.IsAuthenticated)
                            {
                                var um = new HickoryPTASite.UserManager();
-                               if (um.IsInRole(Context.User.Identity.GetUserId(), Constants.Roles.Admin))
+                               if (force ||
+                                   um.IsInRole(Context.User.Identity.GetUserId(), Constants.Roles.Admin))
                                { %>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<span class="caret"></span></a>

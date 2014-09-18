@@ -56,7 +56,7 @@
     <div class="row">
         <div class="form-group" style="padding-left: 15px;">
             <asp:Button ID="Button1" runat="server" OnClick="Submit_Click" Text="Register" CssClass="btn btn-default" />
-            <button data-bind="click: submit", class="btn, btn-default" value="Submit"></button>
+            <button data-bind="click: submit", class="btn btn-default" value="Submit">Register</button>
         </div>
     </div>
 
