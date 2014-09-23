@@ -115,14 +115,14 @@ public partial class MembershipPage : System.Web.UI.Page
             //Session["names"] = l;
             //ViewState["ChildPanel"] = ChildPanel;
 
-            var teacher = new Teacher();
-            teacher.Name.First = "Mrs.";
-            teacher.Name.Last = "Hoagland";
-            teacher.Grade = Grade.K;
+            //var teacher = new Teacher();
+            //teacher.Name.First = "Mrs.";
+            //teacher.Name.Last = "Hoagland";
+            //teacher.Grade = Grade.K;
 
-            var db = new HickoryPTASite.Memberships();
-            db.Teachers.Add(teacher);
-            db.SaveChanges();
+            //var db = new HickoryPTASite.Memberships();
+            //db.Teachers.Add(teacher);
+            //db.SaveChanges();
         }
         else
         {
