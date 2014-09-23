@@ -43,7 +43,7 @@ public partial class Committee_Info : System.Web.UI.Page
         if (FileUpload.HasFile)
             try
             {
-                var fileUploadTask = new FileUploadTask(FileUpload);
+                var fileUploadTask = new FileUploadTask(FileUpload, Label);
 
                 var asyncTask = new PageAsyncTask(
                     fileUploadTask.OnBegin,
@@ -54,6 +54,8 @@ public partial class Committee_Info : System.Web.UI.Page
 
                 RegisterAsyncTask(asyncTask);
                 ExecuteRegisteredAsyncTasks();
+
+                Label.Text = fileUploadTask.GetAsyncTaskProgress();
 
                 //FileUpload.SaveAs("C:\\Uploads\\" +
                 //     FileUpload.FileName);

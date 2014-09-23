@@ -12,7 +12,7 @@ public class Committee
 {
     public string CommitteeName {get; set;}
     public string Description {get; set;}
-    public List<Contact> ChairPersons { get; set; }
+    public List<Member> ChairPersons { get; set; }
 
 	public Committee()
 	{
@@ -56,6 +56,6 @@ public class Committee
 
     private void Initialize()
     {
-        ChairPersons = new List<Contact>();
+        ChairPersons = new List<Member>();
     }
 }

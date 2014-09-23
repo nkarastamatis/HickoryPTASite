@@ -11,12 +11,14 @@ using System.Web.UI.WebControls;
 public class FileUploadTask
 {
     private FileUpload _fileUpload;
+    private Label _label;
     private String _taskprogress;
     private AsyncTaskDelegate _dlgt;
 
-    public FileUploadTask(FileUpload fileUpload)
+    public FileUploadTask(FileUpload fileUpload, Label label)
     {
         _fileUpload = fileUpload;
+        _label = label;
     }
 
     // Create delegate. 
@@ -55,6 +57,12 @@ public class FileUploadTask
     {
         _taskprogress += "AsyncTask completed at: " + DateTime.Now;
         _dlgt.EndInvoke(ar);
+
+        //_label.Text = "File name: " +
+        //     _fileUpload.PostedFile.FileName + "<br>" +
+        //     _fileUpload.PostedFile.ContentLength + " kb<br>" +
+        //     "Content type: " +
+        //     _fileUpload.PostedFile.ContentType;
     }
 
     // Define the method that will get called if the task 

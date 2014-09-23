@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using System.Xml.Serialization;
 using System.IO;
 
-public partial class Membership : System.Web.UI.Page
+public partial class MembershipPage : System.Web.UI.Page
 {
     private const string MembershipSelectedSessionKey = "membershipselected";
     private IList<StudentControl> _persistedControls;
@@ -114,6 +114,15 @@ public partial class Membership : System.Web.UI.Page
             //var l = new PersonName[] { Adult1.Name, Adult2.Name, Child1.Name, Child2.Name, Child3.Name };
             //Session["names"] = l;
             //ViewState["ChildPanel"] = ChildPanel;
+
+            var teacher = new Teacher();
+            teacher.Name.First = "Mrs.";
+            teacher.Name.Last = "Hoagland";
+            teacher.Grade = Grade.K;
+
+            var db = new HickoryPTASite.Memberships();
+            db.Teachers.Add(teacher);
+            db.SaveChanges();
         }
         else
         {
