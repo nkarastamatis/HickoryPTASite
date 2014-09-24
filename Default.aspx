@@ -3,22 +3,17 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="jumbotron">
-        <h1>Joining PTA Means...</h1>
-        <div class="list-group">
-            <a href="#" class="list-group-item">
-                <p class="list-group-item-heading">You are supporting what we do to support our students & our school!</p>
-                <p class="text-primary">Advocacy, funding for field trips, assemblies, school projects, etc.</p>
-            </a>
-            <a href="#" class="list-group-item">
-                <p class="list-group-item-heading">As a member, you a voice, even if you can't be at meetings!</p>
-                <p class="text-primary">When we advocate for our kids, it is for ALL kids at PMES,including yours! If you have an opinion, please share it with us to be included in our comments if you cannot attend! We represent ALL our members!</p>
-            </a>
-            <a href="#" class="list-group-item">
-                <p class="list-group-item-heading">You are showing your kids that their school & what happens there is important to you!</p>
-                <p class="text-primary">If you value your child's education and make it a priority, so will they!</p>
-            </a>
+        <div class="row">
+            <h2 class="text-center">Welcome to Hickory Elementary PTA!</h2>
+            <p class="lead col-md-7">The overall purpose of PTA is to make every child’s potential a reality by engaging and empowering families and communities to advocate for all children.</p>
+            <div class="col-md-5">
+            <img src="Content/images/hickoryschool.jpg" class="center-block img-responsive img-rounded" />
+            </div>
         </div>
-        <p><a href="Membership\Membership" class="btn btn-primary btn-large">Join Now &raquo;</a></p>
+        <div class="list-group">
+            
+            
+        </div>
     </div>
 
     <div class="row">
