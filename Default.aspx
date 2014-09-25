@@ -4,10 +4,12 @@
 
     <div class="jumbotron">
         <div class="row">
-            <h2 class="text-center">Welcome to Hickory Elementary PTA!</h2>
-            <p class="lead col-md-7">The overall purpose of PTA is to make every child’s potential a reality by engaging and empowering families and communities to advocate for all children.</p>
+            <div class="col-md-7">
+                <h2 class="text-center">Welcome to Hickory Elementary PTA!</h2>
+                <p class="lead text-justify">The overall purpose of PTA is to make every child’s potential a reality by engaging and empowering families and communities to advocate for all children.</p>
+            </div>
             <div class="col-md-5">
-            <img src="Content/images/hickoryschool.jpg" class="center-block img-responsive img-rounded" />
+                <img src="Content/images/hickoryschool.jpg" class="center-block img-responsive img-rounded" />
             </div>
         </div>
         <div class="list-group">
