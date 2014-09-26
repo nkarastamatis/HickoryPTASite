@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml.Serialization;
 using System.IO;
+using PTAData.Entities;
 
 public partial class StudentControl : System.Web.UI.UserControl
 {

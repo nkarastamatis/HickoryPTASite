@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml.Serialization;
 using System.IO;
+using PTAData.Entities;
 
 public partial class Committee_Info : System.Web.UI.Page
 {
@@ -62,7 +63,7 @@ public partial class Committee_Info : System.Web.UI.Page
 
     private Committee LoadCommittee()
     {
-        string[] values = Request.QueryString.GetValues(Constants.CommitteeQueryStringKey);
+        string[] values = Request.QueryString.GetValues(HickoryPTASite.Constants.CommitteeQueryStringKey);
         if (values == null)
             return null;
         var committeeFileName = values.FirstOrDefault();

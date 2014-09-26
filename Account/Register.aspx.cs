@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Web.UI;
 using HickoryPTASite;
+using PTAData.Entities;
 
 public partial class Account_Register : Page
 {

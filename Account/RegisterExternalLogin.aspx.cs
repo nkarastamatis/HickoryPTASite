@@ -3,6 +3,7 @@ using Microsoft.Owin.Security;
 using System;
 using System.Web;
 using HickoryPTASite;
+using PTAData.Entities;
 
 public partial class Account_RegisterExternalLogin : System.Web.UI.Page
 {

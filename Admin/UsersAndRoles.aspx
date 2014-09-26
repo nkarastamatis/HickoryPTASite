@@ -37,7 +37,7 @@
                 <asp:CommandField DeleteText="Remove" ShowDeleteButton="True" />
                 <asp:TemplateField HeaderText="Users">
                     <ItemTemplate>
-                        <asp:Label runat="server" id="UserNameLabel" Text='<%# ((HickoryPTASite.ApplicationUser)Container.DataItem).UserName %>'></asp:Label>
+                        <asp:Label runat="server" id="UserNameLabel" Text='<%# ((PTAData.Entities.ApplicationUser)Container.DataItem).UserName %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

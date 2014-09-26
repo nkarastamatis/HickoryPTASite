@@ -9,7 +9,7 @@
         <Columns>
             <asp:TemplateField HeaderText="Username">
                 <ItemTemplate>
-                    <%# ((HickoryPTASite.ApplicationUser)Container.DataItem).UserName %>
+                    <%# ((PTAData.Entities.ApplicationUser)Container.DataItem).UserName %>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>

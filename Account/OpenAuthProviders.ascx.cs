@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using HickoryPTASite;
+using PTAData.Entities;
 
 public partial class OpenAuthProviders : System.Web.UI.UserControl
 {

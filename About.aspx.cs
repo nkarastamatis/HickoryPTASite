@@ -9,6 +9,8 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Xml.Serialization.Advanced;
 using System.Xml.Serialization.Configuration;
+using PTAData.Entities;
+
 public partial class About : Page
 {
     protected void Page_Load(object sender, EventArgs e)

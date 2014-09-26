@@ -12,6 +12,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using PTAData.Entities;
 
 public partial class Roles_UsersAndRoles : System.Web.UI.Page
 {
@@ -34,7 +35,7 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
     private void BindRolesToList()
     {
         // Get all of the roles
-        var db = new HickoryPTASite.ApplicationDbContext();
+        var db = new PTAData.Entities.ApplicationDbContext();
         var roles = db.Roles.ToList().Select(r => r.Name);
         UsersRoleList.DataSource = roles;
         UsersRoleList.DataBind();
@@ -48,7 +49,7 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
     private void BindUsersToUserList()
     {
         // Get all of the user accounts
-        var db = new HickoryPTASite.ApplicationDbContext();
+        var db = new ApplicationDbContext();
         var users = db.Users.ToList();
         UserList.DataSource = users;
         UserList.DataMember = "UserName";
@@ -66,7 +67,7 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
         string selectedUserName = UserList.SelectedValue;
         var list = UserList.DataSource as IList;
         var user = list[UserList.SelectedIndex] as IdentityUser;
-        var um = new HickoryPTASite.UserManager();
+        var um = new UserManager();
         var selectedUsersRoles = user.Roles.ToList();
 
         // Loop through the Repeater's Items and check or uncheck the checkbox as needed
@@ -74,9 +75,10 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
         {
             // Programmatically reference the CheckBox
             CheckBox RoleCheckBox = ri.FindControl("RoleCheckBox") as CheckBox;
-
+            var rm = new RoleManager();
+            var checkedRole = rm.FindByName(RoleCheckBox.Text);
             // See if RoleCheckBox.Text is in selectedUsersRoles
-            if (selectedUsersRoles.Where(r => r.Role.Name == RoleCheckBox.Text).Any())
+            if (selectedUsersRoles.Where(r => r.RoleId == checkedRole.Id).Any())
                 RoleCheckBox.Checked = true;
             else
                 RoleCheckBox.Checked = false;
@@ -90,7 +92,7 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
 
         // Get the currently selected user and role
         string selectedUserName = UserList.SelectedValue;
-        var um = new HickoryPTASite.UserManager();
+        var um = new UserManager();
         var user = um.FindByName(selectedUserName);
         string roleName = RoleCheckBox.Text;
 
@@ -129,9 +131,11 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
         string selectedRoleName = RoleList.SelectedValue;
 
         // Get the list of usernames that belong to the role
-        var db = new HickoryPTASite.ApplicationDbContext();
+        var db = new ApplicationDbContext();
+        var rm = new RoleManager();
+        var selectedRole = rm.FindByName(selectedRoleName);
         var usersBelongingToRole = db.Users
-                  .Where(u => u.Roles.Any(r => r.Role.Name == selectedRoleName))
+                  .Where(u => u.Roles.Any(r => r.RoleId == selectedRole.Id))
                   .ToList();
 
         // Bind the list of users to the GridView
@@ -149,7 +153,7 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
         Label UserNameLabel = RolesUserList.Rows[e.RowIndex].FindControl("UserNameLabel") as Label;
 
         // Remove the user from the role
-        var um = new HickoryPTASite.UserManager();
+        var um = new UserManager();
         var user = um.FindByName(UserNameLabel.Text);
         um.RemoveFromRole(user.Id, selectedRoleName);
 
@@ -177,7 +181,7 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
         }
 
         // Make sure that the user exists in the system
-        var um = new HickoryPTASite.UserManager();
+        var um = new UserManager();
         var user = um.FindByName(userNameToAddToRole);
         if (user == null)
         {
@@ -186,7 +190,9 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
         }
 
         // Make sure that the user doesn't already belong to this role
-        if (user.Roles.Where(r => r.Role.Name == selectedRoleName).Any())
+        var rm = new RoleManager();
+        var selectedRole = rm.FindByName(selectedRoleName);
+        if (user.Roles.Where(r => r.RoleId == selectedRole.Id).Any())
         {
             ActionStatus.Text = string.Format("User {0} already is a member of role {1}.", userNameToAddToRole, selectedRoleName);
             return;

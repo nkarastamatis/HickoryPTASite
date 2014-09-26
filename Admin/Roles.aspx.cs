@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
+using PTAData.Entities;
 
 public partial class Admin_Roles : System.Web.UI.Page
 {
@@ -21,7 +22,7 @@ public partial class Admin_Roles : System.Web.UI.Page
 
     private void BindRolestoGridView()
     {
-        var db = new HickoryPTASite.ApplicationDbContext();
+        var db = new ApplicationDbContext();
         RolesGrid.DataSource = db.Roles.ToList().Select(r => r.Name);
         RolesGrid.DataBind();
     }
@@ -32,7 +33,7 @@ public partial class Admin_Roles : System.Web.UI.Page
 
         try
         {
-            var rm = new HickoryPTASite.RoleManager();
+            var rm = new RoleManager();
             var task = rm.RoleExistsAsync(createRole);
             task.Wait();
             if (task.Result)

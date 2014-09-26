@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
 using System.Xml.Serialization;
+using PTAData.Entities;
 
 public partial class Committee_Create : System.Web.UI.Page
 {
