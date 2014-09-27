@@ -10,7 +10,13 @@
         RouteConfig.RegisterRoutes(RouteTable.Routes);
         BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-        //System.Data.Entity.Database.SetInitializer<Memberships>(null);
+        var membershipContextConfiguration = new PTAData.Migrations.MembershipContextMigrations.Configuration();
+        var migrator = new System.Data.Entity.Migrations.DbMigrator(membershipContextConfiguration);
+        migrator.Update();
+
+        var applicationUserConfiguration = new PTAData.Migrations.ApplicationUserContextMigrations.Configuration();
+        migrator = new System.Data.Entity.Migrations.DbMigrator(applicationUserConfiguration);
+        migrator.Update();
     }
 
 </script>

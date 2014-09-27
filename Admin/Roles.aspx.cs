@@ -22,7 +22,7 @@ public partial class Admin_Roles : System.Web.UI.Page
 
     private void BindRolestoGridView()
     {
-        var db = new ApplicationDbContext();
+        var db = new ApplicationUserContext();
         RolesGrid.DataSource = db.Roles.ToList().Select(r => r.Name);
         RolesGrid.DataBind();
     }

@@ -121,7 +121,7 @@ public partial class MembershipPage : System.Web.UI.Page
             teacher.Name.Last = "Grubbs";
             teacher.Grade = Grade.First;
 
-            var db = new Memberships();
+            var db = new MembershipContext();
             db.Teachers.Add(teacher);
             db.SaveChanges();
         }

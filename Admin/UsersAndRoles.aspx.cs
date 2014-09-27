@@ -35,7 +35,7 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
     private void BindRolesToList()
     {
         // Get all of the roles
-        var db = new PTAData.Entities.ApplicationDbContext();
+        var db = new PTAData.Entities.ApplicationUserContext();
         var roles = db.Roles.ToList().Select(r => r.Name);
         UsersRoleList.DataSource = roles;
         UsersRoleList.DataBind();
@@ -49,7 +49,7 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
     private void BindUsersToUserList()
     {
         // Get all of the user accounts
-        var db = new ApplicationDbContext();
+        var db = new ApplicationUserContext();
         var users = db.Users.ToList();
         UserList.DataSource = users;
         UserList.DataMember = "UserName";
@@ -131,7 +131,7 @@ public partial class Roles_UsersAndRoles : System.Web.UI.Page
         string selectedRoleName = RoleList.SelectedValue;
 
         // Get the list of usernames that belong to the role
-        var db = new ApplicationDbContext();
+        var db = new ApplicationUserContext();
         var rm = new RoleManager();
         var selectedRole = rm.FindByName(selectedRoleName);
         var usersBelongingToRole = db.Users
