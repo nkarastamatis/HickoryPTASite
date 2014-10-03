@@ -99,7 +99,7 @@ public partial class Committee_Info : System.Web.UI.Page
 
                 if (committee != null)
                 {
-                    committee.AttachedFiles.Add(FileUpload.FileName);
+                    committee.AttachedFiles.Add(new CommitteeFile() { CommitteeName = committee.CommitteeName, FileName = FileUpload.FileName });
                     committee.Save();
 
                     AttachedFiles.DataSource = committee.AttachedFiles;
