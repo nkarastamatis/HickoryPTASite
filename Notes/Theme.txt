@@ -1,2 +1,5 @@
 ﻿PaintStrap.com
 Tennis 2
+
+Enable-Migrations -ProjectName PTAData -ContextTypeName PTAData.Entities.CommitteeContext -MigrationsDirectory Migrations\CommitteeContextMigrations
+Add-Migration Initial -ConfigurationTypeName PTAData.Migrations.CommitteeContextMigrations.Configuration -ProjectName PTAData
