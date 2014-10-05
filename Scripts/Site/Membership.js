@@ -61,8 +61,9 @@ var Student = function () {
     })    
 };
 
-var Adult = function() {
+var Member = function() {
     var self = this;
+    self.MemberId = ko.observable();
     self.name = ko.observable(new Name());
     self.Phone = ko.observable();
     self.Email = ko.observable();
@@ -79,7 +80,7 @@ var MembershipInfo = function () {
     var self = this;
     self.membershipTypes = ko.observableArray(membership.membershipTypes);
     self.membershipType = ko.observable();
-    self.adults = ko.observableArray([new Adult()]);
+    self.members = ko.observableArray([new Member()]);
     self.children = ko.observableArray([new Student()]);
 
     self.streetAddress = ko.observable();
@@ -97,9 +98,9 @@ var MembershipInfo = function () {
 
     self.membershipType.subscribe(function () {
         if (self.membershipType() == "Family")
-            self.adults.push(new Adult());
-        else if (self.adults().length > 1)
-            self.adults.pop();
+            self.members.push(new Member());
+        else if (self.members().length > 1)
+            self.members.pop();
     })
 
     self.submit = function () {
@@ -112,9 +113,9 @@ var MembershipInfo = function () {
             return c;
             
         });
-        data.adults = $.map(self.adults(), function (adult) {
+        data.members = $.map(self.members(), function (member) {
             var a = {
-                name: { first: adult.name().first(), last: adult.name().last() }
+                name: { first: member.name().first(), last: member.name().last() }
             }
             return a;
         });

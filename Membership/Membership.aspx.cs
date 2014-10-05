@@ -116,14 +116,14 @@ public partial class MembershipPage : System.Web.UI.Page
             //Session["names"] = l;
             //ViewState["ChildPanel"] = ChildPanel;
 
-            var teacher = new Teacher();
-            teacher.Name.First = "Mrs.";
-            teacher.Name.Last = "Grubbs";
-            teacher.Grade = Grade.First;
+            //var teacher = new Teacher();
+            //teacher.Name.First = "Mrs.";
+            //teacher.Name.Last = "Grubbs";
+            //teacher.Grade = Grade.First;
 
-            var db = new MembershipContext();
-            db.Teachers.Add(teacher);
-            db.SaveChanges();
+            //var db = new MembershipContext();
+            //db.Teachers.Add(teacher);
+            //db.SaveChanges();
         }
         else
         {

@@ -7,6 +7,8 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
+using PTAData.Entities;
+using PTAData.Repositories;
 
 public partial class SiteMaster : MasterPage
 {
@@ -72,7 +74,8 @@ public partial class SiteMaster : MasterPage
             files.Add(Path.GetFileNameWithoutExtension(filePath));
         }
 
-        CommitteeMenuRepeater.DataSource = files;
+        var repo = new CommitteeRepository();
+        CommitteeMenuRepeater.DataSource = repo.Committees;
         CommitteeMenuRepeater.DataBind();
     }
 

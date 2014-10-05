@@ -16,10 +16,10 @@
                     <HeaderTemplate><h3>Chair Persons</h3></HeaderTemplate>
                     <ItemTemplate>
                         <p><address>
-                            <strong><%#DataBinder.Eval(Container.DataItem, "Name")%></strong><br />
+                            <strong><%#DataBinder.Eval(Container.DataItem, "Member.Name")%></strong><br />
                             <abbr title="Phone">P:</abbr> 
-                                <a href="<%#String.Format("tel:+{0}", DataBinder.Eval(Container.DataItem, "Phone"))%>"><%#DataBinder.Eval(Container.DataItem, "Phone")%></a><br />
-                            <a href="mailto:<%#DataBinder.Eval(Container.DataItem, "Email")%>"><%#DataBinder.Eval(Container.DataItem, "Email")%></a>
+                                <a href="<%#String.Format("tel:+{0}", DataBinder.Eval(Container.DataItem, "Member.Phone"))%>"><%#DataBinder.Eval(Container.DataItem, "Member.Phone")%></a><br />
+                            <a href="mailto:<%#DataBinder.Eval(Container.DataItem, "Member.Email")%>"><%#DataBinder.Eval(Container.DataItem, "Member.Email")%></a>
                            </address>
                         </p>
                     </ItemTemplate>

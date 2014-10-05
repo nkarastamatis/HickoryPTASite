@@ -60,33 +60,50 @@
                             <ul class="dropdown-menu" role="menu">
                                 <asp:Repeater runat="server" ID="CommitteeMenuRepeater">
                                     <ItemTemplate>
-                                        <li><a href="/Committee/Info?<%# HickoryPTASite.Constants.CommitteeQueryStringKey + "=" + Container.DataItem as string %>"><%# Container.DataItem as string %></a></li>
+                                        <li><a href="/Committee/Info?<%# HickoryPTASite.Constants.CommitteeQueryStringKey + "=" + (Container.DataItem as PTAData.Entities.Committee).CommitteeName %>"><%# (Container.DataItem as PTAData.Entities.Committee).CommitteeName %></a></li>
                                     </ItemTemplate>
-                                </asp:Repeater>                                
-                                <li><a href="#">Something else here</a></li>
+                                </asp:Repeater>
+                                <% var force = false;
+                                   if (force ||
+                                       Context.User.Identity.IsAuthenticated)
+                                   {
+                                       var um = new PTAData.Entities.UserManager();
+                                       var found = false;
+                                       try {
+                                           var userId = Context.User.Identity.GetUserId();
+                                           found = um.IsInRole(userId, HickoryPTASite.Constants.Roles.Chair) || 
+                                               um.IsInRole(userId, HickoryPTASite.Constants.Roles.Admin); 
+                                       }
+                                       catch { }
+                                       if (force || found)
+                                       { %>
                                 <li class="divider"></li>
-                                <li><a href="/Committee/Create">Create</a></li>                                
+                                <li><a href="/Committee/Create">Create</a></li>
+                                <%  }
+                           }%>
                             </ul>
                         </li>
                         <li><a runat="server" href="/Membership/Membership">Membership</a></li>
                         <li><a runat="server" href="~/About">About</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>
-                        <% var force = false;
-                           if (force || 
+                        <%
+                           if (force ||
                                Context.User.Identity.IsAuthenticated)
                            {
                                var um = new PTAData.Entities.UserManager();
-                               if (force ||
-                                   um.IsInRole(Context.User.Identity.GetUserId(), HickoryPTASite.Constants.Roles.Admin))
+                               var found = false;
+                               try { found = um.IsInRole(Context.User.Identity.GetUserId(), HickoryPTASite.Constants.Roles.Admin); }
+                               catch { }
+                               if (force || found)
                                { %>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="/Admin/Roles">Roles</a></li>
-                                <li><a href="/Admin/UsersAndRoles">Users and Roles</a></li>
-                            </ul>
-                        </li>
-                        <% }
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="/Admin/Roles">Roles</a></li>
+                                        <li><a href="/Admin/UsersAndRoles">Users and Roles</a></li>
+                                    </ul>
+                                </li>
+                            <%  }
                            }%>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">

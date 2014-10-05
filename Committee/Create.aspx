@@ -11,11 +11,13 @@
         <div class="form-group">
             <textarea data-bind="value: Description" rows="10" class="form-control" placeholder="Description"></textarea>
         </div>
-        <div data-bind="foreach: ChairPersons">
-            <div class="form-group">
-                <uc:AdultControl runat="server" />
-            </div>
-        </div>
+        <div data-bind="foreach: SelectedChairs">
+                <select data-bind="options: availableMembers,
+                                            optionsText: function (item) {
+                                                return item.Name.First + ' ' + item.Name.Last;
+                                            },
+                                            value: selectedMember" runat="server" class="form-control"></select>
+        </div>        
         <div class="form-group">
         <div class="form-inline">
             <div class="form-group">

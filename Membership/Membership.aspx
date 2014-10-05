@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    <div data-bind="foreach: adults">
+    <div data-bind="foreach: members">
         <uc:AdultControl runat="server" ID="Adult1" />
     </div>
 
