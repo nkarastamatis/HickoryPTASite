@@ -8,6 +8,8 @@ using System.Xml.Serialization;
 using System.IO;
 using PTAData.Entities;
 using PTAData.Repositories;
+using System.ComponentModel;
+using System.Data.Entity;
 
 public partial class Committee_Info : System.Web.UI.Page
 {
@@ -36,8 +38,9 @@ public partial class Committee_Info : System.Web.UI.Page
 
     #endregion 
 
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Init(object sender, EventArgs e)
     {
+
         if (!IsPostBack)
         {
             Committee committee = LoadCommittee();            
@@ -52,14 +55,25 @@ public partial class Committee_Info : System.Web.UI.Page
 
                 AttachedFiles.DataSource = committee.AttachedFiles;
                 AttachedFiles.DataBind();
+
+                var repo = new CommitteeRepository();
+                var entries = repo.Get<CommitteeEntry>(true).Local.ToList();
+                entries.Add(new CommitteeEntry() { EntryTitle = "Here is a new post", EntryBody = "Body body body" });
+                Entries.DataSource = entries;
+                Entries.DataBind();
+                Session["entries"] = entries;
+            AttachedFiles.DataSource = committee.AttachedFiles;
+            AttachedFiles.DataBind();
             }
+            //Committee committee = LoadCommittee();
         }
         else
         {
-            Committee committee = LoadCommittee();
-            AttachedFiles.DataSource = committee.AttachedFiles;
-            AttachedFiles.DataBind();
         }
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
     }
 
     private Committee LoadCommittee()
@@ -118,5 +132,32 @@ public partial class Committee_Info : System.Web.UI.Page
         {
             Label.Text = "You have not specified a file.";
         }
+    }
+    protected void SavePostChanges_Click(object sender, EventArgs e)
+    {
+        if (IsPostBack)
+        {
+            var ent = Session["entries"];
+            var items = Entries.Items;
+            Entries.ViewStateMode = System.Web.UI.ViewStateMode.Enabled;
+            foreach (Control control in Entries.Controls)
+            {
+                int i = 4;   
+            }
+            foreach(RepeaterItem item in items)
+            {
+                var title = item.FindControl("title");
+                var body = item.FindControl("body");
+            }
+            var entries = Entries.DataSource as System.Collections.ObjectModel.ObservableCollection<CommitteeEntry>;
+        }
+    }
+
+    [System.Web.Services.WebMethod]
+    public static void SaveChangesToEntry(string val)
+    {
+        var en = new CommitteeRepository();
+        var c = en.Get<CommitteeEntry>();
+
     }
 }

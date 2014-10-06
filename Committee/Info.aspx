@@ -32,7 +32,19 @@
                 <asp:FileUpload runat="server" CssClass="form-control" ID="FileUpload" /><br />
                 <asp:Button runat="server" CssClass="form-control" Text="Upload" OnClick="OnFileUpload" /><br />
                 <asp:Label runat="server" CssClass="form-control" ID="Label"></asp:Label>
-                <h2>Two Column (left-hand sidebar)</h2>
+
+                <asp:Repeater runat="server" ID="Entries">
+                    <HeaderTemplate><h3>Posts</h3></HeaderTemplate>
+                    <ItemTemplate>
+                        <h2 class="editable" id="title" runat="server"><%#DataBinder.Eval(Container.DataItem, "EntryTitle")%></h2>
+                        <hr />
+                        <p class="editable-multi" id="body" runat="server"><%#DataBinder.Eval(Container.DataItem, "EntryBody")%></p>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Button runat="server" ID="SavePostChanges" OnClick="SavePostChanges_Click" />
+                    </FooterTemplate>
+                </asp:Repeater>
+                <%--<h2>Two Column (left-hand sidebar)</h2>
                 <hr>
                 <p>Aliquam a tellus quam. Phasellus sit amet bibendum nunc. Donec lobortis nulla diam, a laoreet nisi rhoncus vitae. Suspendisse tincidunt, nulla sed convallis consectetur, diam enim ultricies nulla, a luctus odio nisi in ligula. Aenean ornare rhoncus fermentum. Suspendisse et enim in nibh dictum blandit et id nisi. Duis mollis, libero id venenatis viverra, metus lacus placerat turpis, at semper orci odio id lectus. Proin fringilla quam porttitor est mattis, id aliquam est laoreet. Nulla congue urna nisi, eu commodo dolor aliquet eget. Donec ullamcorper diam quis porttitor convallis. Aliquam erat volutpat. Phasellus pulvinar sagittis nunc et adipiscing.</p>
                 <p>Duis facilisis tellus ante, eu sodales neque ornare vitae. Pellentesque laoreet velit diam, quis tempor est fringilla sed. Curabitur in ullamcorper lectus, et gravida mauris. Suspendisse tristique euismod metus, quis facilisis lectus cursus faucibus. Nulla sed leo sed tellus egestas mattis sed id libero. Aenean at scelerisque augue. Phasellus at sem porttitor, auctor metus pharetra, lacinia sapien.</p>
@@ -40,7 +52,7 @@
                 <p>
                     Donec arcu nisi, euismod vitae facilisis id, pulvinar eget tortor. Nunc lobortis ultrices pellentesque. Sed sollicitudin dapibus erat a interdum. Cras massa mauris, rutrum vel nisi non, malesuada lobortis velit. Fusce eu tellus justo. Donec dictum, purus at adipiscing rhoncus, risus libero bibendum ipsum, mollis vestibulum arcu arcu eget elit. In tempor laoreet ultricies. 
 					Maecenas lacus neque, fermentum in blandit a, mollis in libero. Vivamus ornare eros quis arcu cursus, at luctus nisi accumsan.
-                </p>
+                </p>--%>
                 <div class="table-responsive">
                 <table class="table table-condensed table-striped">
                     <thead>
@@ -69,6 +81,24 @@
 
         <div id="footerInnerSeparator"></div>
     </div>
+    <script type="text/javascript">
+        
+        $('.editable').editable();
+        $('.editable').bind('editsubmit',
+            function (event, val) {
+                PageMethods.set_path("Committee/Info.aspx")
+                PageMethods.SaveChangesToEntry(val, OnSuccess, OnError);
+            });
+        $('.editable-multi').editable(true).bind('editsubmit', function (event, val) { });
+
+        function OnSuccess(re) {
+
+        }
+
+        function OnError(error) {
+
+        }
+    </script>
 
 </asp:Content>
 

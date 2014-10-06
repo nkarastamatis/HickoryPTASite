@@ -1,0 +1,9 @@
+INSERT INTO [dbo].[Memberships] ([MembershipId], [Address_StreetAddress], [Address_City], [Address_State], [Address_Zip], [Type]) VALUES (N'Test', NULL, N'Bel Air', N'MD', NULL, 1)
+
+INSERT INTO [dbo].[Members] ([MemberId], [Name_First], [Name_Last], [Phone], [Email], [MembershipId]) VALUES (N'927bc6d2-b560-4382-baa2-5ed533174ad6', N'MyFirst2', N'LastTest2', N'5555555555', N'test2@gmail.com', N'Test')
+INSERT INTO [dbo].[Members] ([MemberId], [Name_First], [Name_Last], [Phone], [Email], [MembershipId]) VALUES (N'a33914cd-5746-452c-a6ae-696e7b05ae13', N'MyFirst', N'LastTest', N'5555555555', N'test@gmail.com', N'Test')
+
+INSERT INTO [dbo].[Committees] ([CommitteeName], [Description]) VALUES (N'Test Title', N'Test Description')
+
+INSERT INTO [dbo].[ChairPersons] ([CommitteeName], [MemberId]) VALUES (N'Test Title', N'927bc6d2-b560-4382-baa2-5ed533174ad6')
+INSERT INTO [dbo].[ChairPersons] ([CommitteeName], [MemberId]) VALUES (N'Test Title', N'a33914cd-5746-452c-a6ae-696e7b05ae13')

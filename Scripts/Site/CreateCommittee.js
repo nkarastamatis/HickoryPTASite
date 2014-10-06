@@ -2,7 +2,9 @@
     availableMembers: null,
 };
 
-function OnCreateCommitteeLoaded() {
+function OnCreateCommitteeLoaded() {    
+    //document.body.contentEditable = 'true';
+    //document.designMode = 'on';
     $('phone').keyup(formatPhoneNumber);    
 
     var pathArray = window.location.href.split('/');
@@ -76,5 +78,42 @@ var Committee = function () {
 };
 
 function OnCreateSuccess(msg) {
-    alert("Created");
+    alert("Created");   
 }
+
+//plugin to make any element text editable
+$.fn.extend({
+    editable: function (multi) {
+        $(this).each(function () {
+            var $el = $(this),
+			$edittextbox = multi ? $('<textarea cols="40" rows="5"></textarea>').css('min-width', $el.width()) : $('<input type="text"></input>').css('min-width', $el.width()),
+			submitChanges = function () {
+			    if ($edittextbox.val() !== '') {
+			        $el.html($edittextbox.val());
+			        $el.show();
+			        $el.trigger('editsubmit', [$el.html()]);
+			        $(document).unbind('click', submitChanges);
+			        $edittextbox.detach();
+			    }
+			},
+			tempVal;
+            $edittextbox.click(function (event) {
+                event.stopPropagation();
+            });
+
+            $el.dblclick(function (e) {
+                tempVal = $el.html();
+                $edittextbox.val(tempVal).insertBefore(this)
+                .bind('keypress', function (e) {
+                    var code = (e.keyCode ? e.keyCode : e.which);
+                    if (code == 13 && !multi) {
+                        submitChanges();
+                    }
+                }).select();
+                $el.hide();
+                $(document).click(submitChanges);
+            });
+        });
+        return this;
+    }
+});
